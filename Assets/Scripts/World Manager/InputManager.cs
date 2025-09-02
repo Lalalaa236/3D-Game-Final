@@ -18,18 +18,17 @@ public class InputManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
-        SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
+        SceneManager.activeSceneChanged += OnSceneChanged;
         instance.enabled = false;
     }
 
