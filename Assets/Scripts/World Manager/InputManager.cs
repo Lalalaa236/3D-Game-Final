@@ -8,8 +8,10 @@ public class InputManager : MonoBehaviour
     public static InputManager instance;
     GameInput inputActions;
 
-    [SerializeField] Vector2 movementVector;
-    [SerializeField] float moveAmount;
+    [SerializeField] private Vector2 movementVector;
+    public float verticalMovement;
+    public float horizontalMovement;
+    public float moveAmount;
 
     private void Awake()
     {
@@ -33,13 +35,16 @@ public class InputManager : MonoBehaviour
 
     private void OnSceneChanged(Scene current, Scene next)
     {
+        Debug.Log(next.buildIndex);
         if (next.buildIndex == WorldSaveGameManager.instance.GetWorldSceneIndex())
         {
             instance.enabled = true;
+            Debug.Log("Input Enabled");
         }
         else
         {
             instance.enabled = false;
+            Debug.Log("Input Disabled");
         }
     }
 
@@ -65,8 +70,11 @@ public class InputManager : MonoBehaviour
 
     private void HandleMovementInput()
     {
+        verticalMovement = movementVector.y;
+        horizontalMovement = movementVector.x;
+
         // Clamp movement
-        moveAmount = Mathf.Clamp01(Mathf.Abs(movementVector.x) + Mathf.Abs(movementVector.y));
+        moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalMovement) + Mathf.Abs(verticalMovement));
 
         if (moveAmount <= 0.5f && moveAmount > 0f)
         {
