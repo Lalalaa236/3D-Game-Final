@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     GameInput inputActions;
 
     [SerializeField] Vector2 movementVector;
+    [SerializeField] float moveAmount;
 
     private void Awake()
     {
@@ -54,6 +55,26 @@ public class InputManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.activeSceneChanged -= OnSceneChanged;        
+        SceneManager.activeSceneChanged -= OnSceneChanged;
+    }
+
+    private void Update()
+    {
+        HandleMovementInput();
+    }
+
+    private void HandleMovementInput()
+    {
+        // Clamp movement
+        moveAmount = Mathf.Clamp01(Mathf.Abs(movementVector.x) + Mathf.Abs(movementVector.y));
+
+        if (moveAmount <= 0.5f && moveAmount > 0f)
+        {
+            moveAmount = 0.5f;
+        }
+        else if (moveAmount > 0.5f && moveAmount <= 1f)
+        {
+            moveAmount = 1f;
+        }
     }
 }
