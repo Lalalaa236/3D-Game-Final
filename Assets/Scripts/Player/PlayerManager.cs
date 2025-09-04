@@ -7,12 +7,22 @@ public class PlayerManager : MonoBehaviour
     [HideInInspector] public PlayerMovementManager playerMovementManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public CharacterController characterController;
+    [HideInInspector] public PlayerStatsManager playerStatsManager;
     [HideInInspector] public Animator animator;
 
     public bool isPerformingAction;
     public bool canRotate = true;
     public bool canMove = true;
     public bool applyRootMotion = false;
+
+    [Header("Stats")]
+    public int currentStamina;
+    public int maxStamina;
+    private int endurance = 10;
+
+    [SerializeField] private float staminaRegenTimer = 0;
+    private float staminaRegenTimerThreshold = 0.5f;
+    private int staminaRegenAmount = 4;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -20,12 +30,24 @@ public class PlayerManager : MonoBehaviour
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         characterController = GetComponent<CharacterController>();
+        playerStatsManager = GetComponent<PlayerStatsManager>();
         animator = GetComponent<Animator>();
         // TurnOffRootMotion();
-        SetCamera();
-        SetPlayerManagerInInput();
+        PlayerCamera.instance.playerManager = this;
+        InputManager.instance.playerManager = this;
+
+        maxStamina = playerStatsManager.CalculateStamina(endurance);
+        currentStamina = maxStamina;
+        PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(maxStamina);
     }
-    
+
+    public void ChangeStaminaValue(int value)
+    {
+        currentStamina += value;
+        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
+        PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
+    }
+
     // private void TurnOffRootMotion()
     // {
     //     animator.applyRootMotion = false;         // parent controls movement
@@ -45,21 +67,29 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         playerMovementManager.HandleMovement();
-    }
-
-    private void SetCamera()
-    {
-        PlayerCamera.instance.playerManager = this;
-    }
-
-    private void SetPlayerManagerInInput()
-    {
-        Debug.Log("Setting Player Manager in Input Manager");
-        InputManager.instance.playerManager = this;
+        RegenerateStamina();
     }
 
     private void LateUpdate()
     {
         PlayerCamera.instance.HandleCameraAction();
+    }
+
+    public void RegenerateStamina()
+    {
+        if (isPerformingAction)
+            return;
+
+        staminaRegenTimer += Time.deltaTime;
+
+        if (currentStamina < maxStamina)
+        {
+            if (staminaRegenTimer >= staminaRegenTimerThreshold)
+            {
+                ChangeStaminaValue(staminaRegenAmount);
+                staminaRegenTimer = 0;
+            }
+        }
+        
     }
 }

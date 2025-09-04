@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -21,6 +22,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     [Header("Dodge")]
     [SerializeField] private Vector3 rollDirection;
+    [SerializeField] private float dodgeStaminaCost = 15f;
 
     private void Awake()
     {
@@ -86,6 +88,8 @@ public class PlayerMovementManager : MonoBehaviour
     {
         if (playerManager.isPerformingAction)
             return;
+        if (playerManager.currentStamina < dodgeStaminaCost)
+            return;
         if (moveAmount > 0)
         {
             // perform roll
@@ -105,5 +109,6 @@ public class PlayerMovementManager : MonoBehaviour
             // perform backstep
             playerManager.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true, true, false, false);
         }
+        playerManager.ChangeStaminaValue(-Mathf.RoundToInt(dodgeStaminaCost));
     }
 }
