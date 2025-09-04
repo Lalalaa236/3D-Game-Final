@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class PlayerEffectManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerManager playerManager;
+    private void Awake()
     {
-        
+        playerManager = GetComponent<PlayerManager>();
+    }
+    // PROCESS INSTANT EFFECT
+    public void ProcessInstantEffect(InstantCharacterEffect instantEffect)
+    {
+        instantEffect.ProcessEffect(playerManager);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
