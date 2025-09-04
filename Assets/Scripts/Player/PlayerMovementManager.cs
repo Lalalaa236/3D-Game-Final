@@ -19,6 +19,9 @@ public class PlayerMovementManager : MonoBehaviour
     [SerializeField] private float walkingSpeed = 2f;
     [SerializeField] private float sprintingSpeed = 5f;
     [SerializeField] private float rotationSpeed = 15f;
+    // [SerializeField] private float groundedVelocity = -20f;
+    // [SerializeField] private float groundCheckSphereRadius = 0.1f;
+    [SerializeField] private LayerMask groundLayer;
 
     [Header("Dodge")]
     [SerializeField] private Vector3 rollDirection;
@@ -39,29 +42,49 @@ public class PlayerMovementManager : MonoBehaviour
     public void HandleMovement()
     {
         // Handle player movement input and apply it to the player character
+
         HandleGroundedMovement();
         HandleRotation();
     }
 
     private void HandleGroundedMovement()
     {
-        if (playerManager.canMove == false)
-            return;
+        // if (playerManager.canMove == false)
+        //     return;
+        // GetVerticalAndHorizontalInput();
+
+        // moveDir = PlayerCamera.instance.transform.forward * verticalMovement;
+        // moveDir += PlayerCamera.instance.transform.right * horizontalMovement;
+        // moveDir.Normalize();
+        // moveDir.y = 0;
+
+        // if (InputManager.instance.moveAmount > 0.5)
+        // {
+        //     playerManager.characterController.Move(moveDir * sprintingSpeed * Time.deltaTime);
+        // }
+        // else if (InputManager.instance.moveAmount <= 0.5f)
+        // {
+        //     playerManager.characterController.Move(moveDir * walkingSpeed * Time.deltaTime);
+        // }
+
+        if (playerManager.canMove == false) return;
+
         GetVerticalAndHorizontalInput();
 
-        moveDir = PlayerCamera.instance.transform.forward * verticalMovement;
-        moveDir += PlayerCamera.instance.transform.right * horizontalMovement;
-        moveDir.Normalize();
-        moveDir.y = 0;
+        // --- horizontal XZ from camera ---
+        Vector3 forward = PlayerCamera.instance.transform.forward;
+        Vector3 right   = PlayerCamera.instance.transform.right;
+        forward.y = right.y = 0f; forward.Normalize(); right.Normalize();
 
-        if (InputManager.instance.moveAmount > 0.5)
-        {
-            playerManager.characterController.Move(moveDir * sprintingSpeed * Time.deltaTime);
-        }
-        else if (InputManager.instance.moveAmount <= 0.5f)
-        {
-            playerManager.characterController.Move(moveDir * walkingSpeed * Time.deltaTime);
-        }
+        Vector3 inputDir = (forward * verticalMovement + right * horizontalMovement).normalized;
+        float speed = (InputManager.instance.moveAmount > 0.5f) ? sprintingSpeed : walkingSpeed;
+        Vector3 horizontal = speed * Time.deltaTime * inputDir;
+
+        // --- vertical from shared gravity ---
+        Vector3 vertical = playerManager.GetGravityDelta();
+
+        // --- ONE move this frame ---
+        playerManager.characterController.Move(horizontal + vertical);  
     }
 
     private void HandleRotation()
@@ -111,4 +134,15 @@ public class PlayerMovementManager : MonoBehaviour
         }
         playerManager.ChangeStaminaValue(-Mathf.RoundToInt(dodgeStaminaCost));
     }
+
+    // private void HandleGroundCheck()
+    // {
+    //     playerManager.isGrounded = Physics.CheckSphere(playerManager.transform.position, groundCheckSphereRadius, groundLayer);
+    // }
+
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawWireSphere(transform.position, groundCheckSphereRadius);
+    // }
 }

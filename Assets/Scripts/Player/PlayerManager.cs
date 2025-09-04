@@ -15,6 +15,11 @@ public class PlayerManager : MonoBehaviour
     public bool canMove = true;
     public bool applyRootMotion = false;
 
+    [Header("Gravity")]
+    public float gravity = -20f;        // try -9.81 to -30
+    public float groundedStick = -2f;   // small downward "stick to ground"
+    [HideInInspector] public float verticalVelocity;
+
     [Header("Stats")]
     public int currentStamina;
     public int maxStamina;
@@ -90,6 +95,19 @@ public class PlayerManager : MonoBehaviour
                 staminaRegenTimer = 0;
             }
         }
-        
+
+    }
+    
+    public Vector3 GetGravityDelta()
+    {
+        if (characterController.isGrounded)
+        {
+            if (verticalVelocity < 0f) verticalVelocity = groundedStick;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;   // v = v + g*dt
+        }
+        return Vector3.up * verticalVelocity * Time.deltaTime;
     }
 }
