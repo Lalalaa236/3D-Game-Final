@@ -11,4 +11,12 @@ public class PlayerStatsManager : MonoBehaviour
         stamina = endurance * 10;
         return Mathf.RoundToInt(stamina);
     }
+
+    public int CalculateHealth(int vitality)
+    {
+        float health = 0;
+
+        health = vitality * 10;
+        return Mathf.RoundToInt(health);
+    }
 }

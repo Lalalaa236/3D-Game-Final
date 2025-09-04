@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     public float groundedStick = -2f;   // small downward "stick to ground"
     [HideInInspector] public float verticalVelocity;
 
-    [Header("Stats")]
+    [Header("Stamina")]
     public int currentStamina;
     public int maxStamina;
     private int endurance = 10;
@@ -28,6 +28,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float staminaRegenTimer = 0;
     private float staminaRegenTimerThreshold = 0.5f;
     private int staminaRegenAmount = 4;
+
+    [Header("Health")]
+    public int currentHealth;
+    public int maxHealth;
+    private int vitality = 10;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -44,6 +49,10 @@ public class PlayerManager : MonoBehaviour
         maxStamina = playerStatsManager.CalculateStamina(endurance);
         currentStamina = maxStamina;
         PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(maxStamina);
+
+        maxHealth = playerStatsManager.CalculateHealth(vitality);
+        currentHealth = maxHealth;
+        PlayerUIManager.instance.playerHUDManager.SetMaxHealthBarValue(maxHealth);
     }
 
     public void ChangeStaminaValue(int value)
@@ -51,6 +60,13 @@ public class PlayerManager : MonoBehaviour
         currentStamina += value;
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
         PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
+    }
+
+    public void ChangeHealthValue(int value)
+    {
+        currentHealth += value;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
     }
 
     // private void TurnOffRootMotion()
