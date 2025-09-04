@@ -12,10 +12,21 @@ public class PlayerManager : MonoBehaviour
 
         playerMovementManager = GetComponent<PlayerMovementManager>();
         characterController = GetComponent<CharacterController>();
+        SetCamera(); 
     }
 
     private void Update()
     {
         playerMovementManager.HandleMovement();
+    }
+
+    private void SetCamera()
+    {
+        PlayerCamera.instance.playerManager = this;
+    }
+
+    private void LateUpdate()
+    {
+        PlayerCamera.instance.HandleCameraAction();
     }
 }

@@ -17,7 +17,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     [SerializeField] private float walkingSpeed = 2f;
     [SerializeField] private float sprintingSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float rotationSpeed = 15f;
 
     private void Awake()
     {
@@ -60,8 +60,8 @@ public class PlayerMovementManager : MonoBehaviour
     private void HandleRotation()
     {
         targetDir = Vector3.zero;
-        targetDir = PlayerCamera.instance.playerCamera.transform.forward * verticalMovement;
-        targetDir += PlayerCamera.instance.playerCamera.transform.right * horizontalMovement;
+        targetDir = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+        targetDir += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
         targetDir.Normalize();
         targetDir.y = 0;
 
