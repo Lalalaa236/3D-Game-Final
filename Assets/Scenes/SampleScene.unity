@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 92519513}
   - component: {fileID: 92519512}
   - component: {fileID: 92519514}
+  - component: {fileID: 92519516}
   - component: {fileID: 92519515}
   m_Layer: 0
   m_Name: Player
@@ -153,7 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f23dafeb613cf4479791c76698c54e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovementManager: {fileID: 0}
+  playerAnimatorManager: {fileID: 0}
   characterController: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!4 &92519513
 Transform:
   m_ObjectHideFlags: 0
@@ -214,6 +218,18 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &92519516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92519511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3249800d68d7cee459efef5e10ea9bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &305603454
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 452572, guid: 23f3f4b3bcef07946bf59bf4d156600e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000011920929
+      value: 0.213
       objectReference: {fileID: 0}
     - target: {fileID: 452572, guid: 23f3f4b3bcef07946bf59bf4d156600e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -701,6 +717,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9566420, guid: 880858dfd9b1e784e89d45242bf78d2b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: abd1f8860d326144186ad94ac5ae3b41, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

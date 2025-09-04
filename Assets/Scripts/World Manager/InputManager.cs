@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class InputManager : MonoBehaviour
 {
     public static InputManager instance;
+    public PlayerManager playerManager;
     GameInput inputActions;
 
     [Header("Movement")]
@@ -96,6 +97,13 @@ public class InputManager : MonoBehaviour
         else if (moveAmount > 0.5f && moveAmount <= 1f)
         {
             moveAmount = 1f;
+        }
+
+        // Update animator values
+        if (playerManager != null)
+        {
+            // Not locked on target
+            playerManager.playerAnimatorManager.UpdateAnimatorValues(0, moveAmount);
         }
     }
 
