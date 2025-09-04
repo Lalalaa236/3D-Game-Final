@@ -44,31 +44,28 @@ ExportedObj/
 *.userprefs
 *.pidb
 *.booproj
-*.svd
-*.pdb
-*.mdb
-*.opendb
-*.VC.db
+*.log
 
-# Unity3D generated meta files
-*.pidb.meta
-*.pdb.meta
-*.mdb.meta
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
 
-# Unity3D generated file on crash reports
-sysinfo.txt
 
-# Builds
-*.apk
-*.unitypackage
+# ======= #
+# VS Code #
+# ======= #
+.vscode/
 
-# Crashlytics generated file
-crashlytics-build.properties
-
-# TextMesh Pro files
-[Aa]ssets/TextMesh*Pro/Resources/Fonts & Materials/*.asset
-[Aa]ssets/[Tt]utorialInfo/
-
-[Ss]ynty[Ss]tudios/
-[Pp]olygon[Dd]ungeon/
-[Nn]ephilite*Studios/
+# ============ #
+# SyntyStudios #
+# ============ #
+SyntyStudios/
+# PolygonDungeon/
