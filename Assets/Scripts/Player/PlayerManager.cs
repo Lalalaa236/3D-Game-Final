@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public PlayerMovementManager playerMovementManager;
-    public PlayerAnimatorManager playerAnimatorManager;
-    public CharacterController characterController;
-    public Animator animator;
+    [HideInInspector] public PlayerMovementManager playerMovementManager;
+    [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
+    [HideInInspector] public CharacterController characterController;
+    [HideInInspector] public Animator animator;
+
+    public bool isPerformingAction;
+    public bool canRotate = true;
+    public bool canMove = true;
+    public bool applyRootMotion = false;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -15,21 +20,26 @@ public class PlayerManager : MonoBehaviour
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         characterController = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
-        animator.applyRootMotion = false;         // parent controls movement
-        animator.updateMode = AnimatorUpdateMode.Normal;
-        // keep the model locked under the parent
-        var model = animator.transform;
-        model.localPosition = Vector3.zero;
-        model.localRotation = Quaternion.identity;
-        model.localScale    = Vector3.one;
+        animator = GetComponent<Animator>();
+        // TurnOffRootMotion();
         SetCamera();
         SetPlayerManagerInInput();
     }
+    
+    // private void TurnOffRootMotion()
+    // {
+    //     animator.applyRootMotion = false;         // parent controls movement
+    //     animator.updateMode = AnimatorUpdateMode.Normal;
+    //     // keep the model locked under the parent
+    //     var model = animator.transform;
+    //     model.localPosition = Vector3.zero;
+    //     model.localRotation = Quaternion.identity;
+    //     model.localScale    = Vector3.one;
+    // }
 
     // private void Start()
     // {
-        
+
     // }
 
     private void Update()

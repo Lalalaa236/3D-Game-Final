@@ -151,6 +151,45 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             ]
         },
         {
+            ""name"": ""Actions"",
+            ""id"": ""fcf1e6ce-d701-45c0-839e-cb258aa8052a"",
+            ""actions"": [
+                {
+                    ""name"": ""Dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""043c107c-6fd9-4bf2-87a5-b6f390db5344"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3cfac542-7fdb-4897-9fce-aa5ace8ee12a"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72bb36ff-5972-445a-a8d3-419bcaa64c5f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
             ""name"": ""Camera"",
             ""id"": ""427c01ac-bbf5-4eb1-b570-b790633f8a58"",
             ""actions"": [
@@ -250,6 +289,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
+        // Actions
+        m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
+        m_Actions_Dodge = m_Actions.FindAction("Dodge", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
@@ -357,6 +399,52 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     }
     public MovementActions @Movement => new MovementActions(this);
 
+    // Actions
+    private readonly InputActionMap m_Actions;
+    private List<IActionsActions> m_ActionsActionsCallbackInterfaces = new List<IActionsActions>();
+    private readonly InputAction m_Actions_Dodge;
+    public struct ActionsActions
+    {
+        private @GameInput m_Wrapper;
+        public ActionsActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Dodge => m_Wrapper.m_Actions_Dodge;
+        public InputActionMap Get() { return m_Wrapper.m_Actions; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ActionsActions set) { return set.Get(); }
+        public void AddCallbacks(IActionsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ActionsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ActionsActionsCallbackInterfaces.Add(instance);
+            @Dodge.started += instance.OnDodge;
+            @Dodge.performed += instance.OnDodge;
+            @Dodge.canceled += instance.OnDodge;
+        }
+
+        private void UnregisterCallbacks(IActionsActions instance)
+        {
+            @Dodge.started -= instance.OnDodge;
+            @Dodge.performed -= instance.OnDodge;
+            @Dodge.canceled -= instance.OnDodge;
+        }
+
+        public void RemoveCallbacks(IActionsActions instance)
+        {
+            if (m_Wrapper.m_ActionsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IActionsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ActionsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ActionsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ActionsActions @Actions => new ActionsActions(this);
+
     // Camera
     private readonly InputActionMap m_Camera;
     private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
@@ -423,6 +511,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     public interface IMovementActions
     {
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface IActionsActions
+    {
+        void OnDodge(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

@@ -8,9 +8,9 @@ public class PlayerMovementManager : MonoBehaviour
 {
     private PlayerManager playerManager;
 
-    public float verticalMovement;
-    public float horizontalMovement;
-    public float moveAmount;
+    [HideInInspector] public float verticalMovement;
+    [HideInInspector] public float horizontalMovement;
+    [HideInInspector] public float moveAmount;
 
     private Vector3 moveDir;
     private Vector3 targetDir;
@@ -18,6 +18,9 @@ public class PlayerMovementManager : MonoBehaviour
     [SerializeField] private float walkingSpeed = 2f;
     [SerializeField] private float sprintingSpeed = 5f;
     [SerializeField] private float rotationSpeed = 15f;
+
+    [Header("Dodge")]
+    [SerializeField] private Vector3 rollDirection;
 
     private void Awake()
     {
@@ -40,6 +43,8 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void HandleGroundedMovement()
     {
+        if (playerManager.canMove == false)
+            return;
         GetVerticalAndHorizontalInput();
 
         moveDir = PlayerCamera.instance.transform.forward * verticalMovement;
@@ -59,6 +64,8 @@ public class PlayerMovementManager : MonoBehaviour
 
     private void HandleRotation()
     {
+        if (playerManager.canRotate == false)
+            return;
         targetDir = Vector3.zero;
         targetDir = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
         targetDir += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
@@ -73,5 +80,30 @@ public class PlayerMovementManager : MonoBehaviour
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
 
         transform.rotation = targetRotation;
+    }
+
+    public void TryPerformDodge()
+    {
+        if (playerManager.isPerformingAction)
+            return;
+        if (moveAmount > 0)
+        {
+            // perform roll
+            rollDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
+            rollDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+
+
+            rollDirection.y = 0;
+            rollDirection.Normalize();
+            Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
+            playerManager.transform.rotation = playerRotation;
+
+            playerManager.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true, true, false, false);
+        }
+        else
+        {
+            // perform backstep
+            playerManager.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true, true, false, false);
+        }
     }
 }

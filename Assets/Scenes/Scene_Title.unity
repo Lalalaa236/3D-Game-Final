@@ -190,6 +190,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &56800698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 56800699}
+  - component: {fileID: 56800700}
+  m_Layer: 0
+  m_Name: World SFX Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &56800699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56800698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.25791416, y: 0.38251576, z: -0.6840024}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &56800700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56800698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b70ab9dbf33e545a299149b9c6172a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rollSFX: {fileID: 8300000, guid: 215f95386bc27304c87139fa988f1c3c, type: 3}
 --- !u!1 &74768404
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89cffb6c2473c7949b53440c2fb44449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
   movementVector: {x: 0, y: 0}
   verticalMovement: 0
   horizontalMovement: 0
@@ -699,6 +745,7 @@ MonoBehaviour:
   cameraVector: {x: 0, y: 0}
   verticalCamera: 0
   horizontalCamera: 0
+  dodgeInput: 0
 --- !u!1 &1209985520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,3 +1643,4 @@ SceneRoots:
   - {fileID: 1632982860}
   - {fileID: 1127834416}
   - {fileID: 1805114089}
+  - {fileID: 56800699}
