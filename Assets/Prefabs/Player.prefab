@@ -1961,6 +1961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2628484963673455650}
+  - component: {fileID: 227776763050647146}
   m_Layer: 6
   m_Name: Hand_R
   m_TagString: Untagged
@@ -1986,6 +1987,23 @@ Transform:
   - {fileID: 6229385302639969496}
   m_Father: {fileID: 188387844029832308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &227776763050647146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2705072753379254714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771fe0a54095a24499fe22f7c550ff24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefab: {fileID: 194264, guid: 23f3f4b3bcef07946bf59bf4d156600e, type: 3}
+  rightHandTransform: {fileID: 2628484963673455650}
+  localPositionOffset: {x: 10.1, y: 3.4, z: -0.4}
+  localEulerOffset: {x: 23.378, y: -109.321, z: 97.761}
+  localScale: {x: 80, y: 80, z: 80}
 --- !u!1 &2731440133429399054
 GameObject:
   m_ObjectHideFlags: 0
