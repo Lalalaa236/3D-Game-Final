@@ -117,30 +117,64 @@ public class EnemyNav : MonoBehaviour
 
     private bool TryGetRandomNavmeshPoint(out Vector3 result)
     {
-        Bounds b = ResolveBounds();
+        // If a spawnVolume is set, keep the original bounded sampling.
+        if (spawnVolume != null)
+        {
+            Bounds b = ResolveBounds();
+            for (int attempt = 0; attempt < maxAttemptsPerSpawn; attempt++)
+            {
+                Vector3 rnd = RandomPointInBounds(b, transform.position, fallbackRadius);
+
+                if (NavMesh.SamplePosition(rnd, out NavMeshHit hit, sampleMaxDistance, NavMesh.AllAreas))
+                {
+                    if (minSeparation > 0f)
+                    {
+                        bool ok = true;
+                        for (int i = 0; i < _spawnedPositions.Count; i++)
+                        {
+                            if ((hit.position - _spawnedPositions[i]).sqrMagnitude < (minSeparation * minSeparation))
+                            {
+                                ok = false; break;
+                            }
+                        }
+                        if (!ok) continue;
+                    }
+
+                    result = hit.position;
+                    return true;
+                }
+            }
+            result = default;
+            return false;
+        }
+
+        // No spawnVolume: sample across the whole NavMesh
         for (int attempt = 0; attempt < maxAttemptsPerSpawn; attempt++)
         {
-            Vector3 rnd = RandomPointInBounds(b, transform.position, fallbackRadius);
-
-            if (NavMesh.SamplePosition(rnd, out NavMeshHit hit, sampleMaxDistance, NavMesh.AllAreas))
+            if (RandomPointOnNavMesh(out Vector3 navPoint))
             {
-                if (minSeparation > 0f)
+                // Optional snap to navmesh to be safe
+                if (NavMesh.SamplePosition(navPoint, out NavMeshHit hit, sampleMaxDistance, NavMesh.AllAreas))
                 {
-                    bool ok = true;
-                    for (int i = 0; i < _spawnedPositions.Count; i++)
+                    if (minSeparation > 0f)
                     {
-                        if ((hit.position - _spawnedPositions[i]).sqrMagnitude < (minSeparation * minSeparation))
+                        bool ok = true;
+                        for (int i = 0; i < _spawnedPositions.Count; i++)
                         {
-                            ok = false; break;
+                            if ((hit.position - _spawnedPositions[i]).sqrMagnitude < (minSeparation * minSeparation))
+                            {
+                                ok = false; break;
+                            }
                         }
+                        if (!ok) continue;
                     }
-                    if (!ok) continue;
-                }
 
-                result = hit.position;
-                return true;
+                    result = hit.position;
+                    return true;
+                }
             }
         }
+
         result = default;
         return false;
     }
@@ -167,10 +201,66 @@ public class EnemyNav : MonoBehaviour
         }
         else
         {
-            // Flat disc around fallbackCenter
+            // Flat disc around fallbackCenter (kept as fallback if needed)
             Vector2 circle = Random.insideUnitCircle * radius;
             return new Vector3(fallbackCenter.x + circle.x, b.center.y, fallbackCenter.z + circle.y);
         }
+    }
+
+    // New helper: picks a random point over the entire NavMesh surface,
+    // sampling triangles weighted by area.
+    private bool RandomPointOnNavMesh(out Vector3 point)
+    {
+        point = default;
+        var triang = NavMesh.CalculateTriangulation();
+        var vertices = triang.vertices;
+        var indices = triang.indices;
+
+        if (vertices == null || indices == null || indices.Length < 3)
+            return false;
+
+        int triCount = indices.Length / 3;
+        // Build cumulative areas
+        float totalArea = 0f;
+        // Small allocation but acceptable for occasional spawning
+        float[] areas = new float[triCount];
+        for (int i = 0; i < triCount; i++)
+        {
+            Vector3 a = vertices[indices[i * 3]];
+            Vector3 b = vertices[indices[i * 3 + 1]];
+            Vector3 c = vertices[indices[i * 3 + 2]];
+            float area = Vector3.Cross(b - a, c - a).magnitude * 0.5f;
+            areas[i] = area;
+            totalArea += area;
+        }
+
+        if (totalArea <= Mathf.Epsilon)
+            return false;
+
+        // Pick a triangle weighted by area
+        float r = Random.value * totalArea;
+        int chosenTri = 0;
+        float accum = 0f;
+        for (int i = 0; i < triCount; i++)
+        {
+            accum += areas[i];
+            if (r <= accum)
+            {
+                chosenTri = i;
+                break;
+            }
+        }
+
+        Vector3 v0 = vertices[indices[chosenTri * 3]];
+        Vector3 v1 = vertices[indices[chosenTri * 3 + 1]];
+        Vector3 v2 = vertices[indices[chosenTri * 3 + 2]];
+
+        // Random barycentric coordinates
+        float u = Random.value;
+        float v = Random.value;
+        if (u + v > 1f) { u = 1f - u; v = 1f - v; }
+        point = v0 + (v1 - v0) * u + (v2 - v0) * v;
+        return true;
     }
 
     [ContextMenu("Spawn Now")]
