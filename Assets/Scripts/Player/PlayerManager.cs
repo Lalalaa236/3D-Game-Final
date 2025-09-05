@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class PlayerManager : MonoBehaviour
 {
     [HideInInspector] public PlayerMovementManager playerMovementManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public Animator animator;
+    [HideInInspector] public NavMeshAgent navMeshAgent;
 
     public bool isPerformingAction;
     public bool canRotate = true;
@@ -21,11 +24,31 @@ public class PlayerManager : MonoBehaviour
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
         // TurnOffRootMotion();
+
+        navMeshAgent.updatePosition = false; // we'll set nextPosition manually
+        navMeshAgent.updateRotation = false;
+
+        // Make agent dimensions match controller (prevents doorway/step weirdness)
+        navMeshAgent.radius = characterController.radius;
+        navMeshAgent.height = characterController.height;
+        navMeshAgent.baseOffset = characterController.center.y;
+
+        if (NavMesh.SamplePosition(transform.position, out var startHit, 2f, NavMesh.AllAreas))
+        {
+            navMeshAgent.Warp(startHit.position);     // agent internal position
+            transform.position = startHit.position; // player transform
+        }
+        else
+        {
+            Debug.LogWarning("PlayerManager: Player is not over a NavMesh. Bake/position the player on a walkable area.");
+        }
+
         SetCamera();
         SetPlayerManagerInInput();
     }
-    
+
     // private void TurnOffRootMotion()
     // {
     //     animator.applyRootMotion = false;         // parent controls movement
@@ -45,6 +68,8 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         playerMovementManager.HandleMovement();
+
+        if (navMeshAgent != null) navMeshAgent.nextPosition = transform.position;
     }
 
     private void SetCamera()
