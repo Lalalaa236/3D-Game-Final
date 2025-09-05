@@ -7,7 +7,7 @@ public class WorldSaveGameManager : MonoBehaviour
 {
     public static WorldSaveGameManager instance;
 
-    [SerializeField] private int worldSceneIndex = 2;
+    [SerializeField] private int worldSceneIndex = 1;
 
     private void Awake()
     {
