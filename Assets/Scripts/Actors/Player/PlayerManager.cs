@@ -25,14 +25,11 @@ public class PlayerManager : MonoBehaviour
     public int maxStamina;
     private int endurance = 10;
 
-    [SerializeField] private float staminaRegenTimer = 0;
-    private float staminaRegenTimerThreshold = 0.5f;
-    private int staminaRegenAmount = 4;
-
     [Header("Health")]
     public int currentHealth;
     public int maxHealth;
     private int vitality = 10;
+    public bool isDead = false;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -67,6 +64,7 @@ public class PlayerManager : MonoBehaviour
         currentHealth += value;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
+        playerStatsManager.CheckHP();
     }
 
     // private void TurnOffRootMotion()
@@ -88,7 +86,11 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         playerMovementManager.HandleMovement();
-        RegenerateStamina();
+        playerStatsManager.RegenerateStamina();
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            ChangeHealthValue(-10); // test damage
+        }
     }
 
     private void LateUpdate()
@@ -96,24 +98,6 @@ public class PlayerManager : MonoBehaviour
         PlayerCamera.instance.HandleCameraAction();
     }
 
-    public void RegenerateStamina()
-    {
-        if (isPerformingAction)
-            return;
-
-        staminaRegenTimer += Time.deltaTime;
-
-        if (currentStamina < maxStamina)
-        {
-            if (staminaRegenTimer >= staminaRegenTimerThreshold)
-            {
-                ChangeStaminaValue(staminaRegenAmount);
-                staminaRegenTimer = 0;
-            }
-        }
-
-    }
-    
     public Vector3 GetGravityDelta()
     {
         if (characterController.isGrounded)
@@ -125,5 +109,37 @@ public class PlayerManager : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;   // v = v + g*dt
         }
         return Vector3.up * verticalVelocity * Time.deltaTime;
+    }
+
+    public IEnumerator ProcessDeath(bool manuallySelectDeathAnimation = false)
+    {
+        PlayerUIManager.instance.playerHUDManager.ShowDeathScreen();
+
+        currentHealth = 0;
+        isDead = true;
+
+        // RESET FLAGS
+        playerAnimatorManager.PlayTargetActionAnimation("Dead_01", true);
+        yield return new WaitForSeconds(5f);
+        
+        // Auto-revive after the delay
+        Revive();
+    }
+    
+    public void Revive()
+    {
+        isDead = false;
+        currentHealth = maxHealth;
+        currentStamina = maxStamina;
+        PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
+        PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
+        PlayerUIManager.instance.playerHUDManager.deathScreen.SetActive(false);
+        playerAnimatorManager.PlayTargetActionAnimation("Empty", false);
+        
+        // Destroy the current player before loading new scene to prevent duplicates
+        Destroy(gameObject);
+        
+        // Load new game scene
+        StartCoroutine(WorldSaveGameManager.instance.LoadNewGame());
     }
 }
