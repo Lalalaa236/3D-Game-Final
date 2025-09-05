@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 407186}
   - component: {fileID: 9505110}
   - component: {fileID: -3928967165589936846}
-  - component: {fileID: 6621077935217901437}
+  - component: {fileID: -6830048769750613852}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Untagged
@@ -268,7 +268,7 @@ Animator:
   m_GameObject: {fileID: 112422}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
-  m_Controller: {fileID: 9100000, guid: e74aff9d94aed064dafaed2e16f0e524, type: 2}
+  m_Controller: {fileID: 9100000, guid: d41f281630975114c92e1f687fb805e5, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -287,7 +287,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112422}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
@@ -301,33 +301,32 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &6621077935217901437
-Rigidbody:
+--- !u!114 &-6830048769750613852
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112422}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ac29e48baab094d88967b56d7f4b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  aggroRadius: 10
+  loseAggroRadius: 15
+  attackRange: 2
+  stoppingBuffer: 0.2
+  repathInterval: 0.2
+  destRefreshThreshold: 0.3
+  dampTime: 0.12
+  animSmoothing: 0.12
+  forwardDeadzone: 0.03
+  allowBackpedal: 0
+  attackCooldown: 3
+  rotateToVelocity: 1
+  rotateSpeed: 12
 --- !u!1 &116542
 GameObject:
   m_ObjectHideFlags: 0
