@@ -2,18 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : ActorManager
 {
     [HideInInspector] public PlayerMovementManager playerMovementManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
-    [HideInInspector] public CharacterController characterController;
+    // [HideInInspector] public CharacterController characterController;
     [HideInInspector] public PlayerStatsManager playerStatsManager;
-    [HideInInspector] public Animator animator;
-
-    public bool isPerformingAction;
-    public bool canRotate = true;
-    public bool canMove = true;
-    public bool applyRootMotion = false;
 
     [Header("Gravity")]
     public float gravity = -20f;        // try -9.81 to -30
@@ -30,13 +24,13 @@ public class PlayerManager : MonoBehaviour
     public int maxHealth;
     private int vitality = 10;
     public bool isDead = false;
-    private void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
 
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
-        characterController = GetComponent<CharacterController>();
+        // characterController = GetComponent<CharacterController>();
         playerStatsManager = GetComponent<PlayerStatsManager>();
         animator = GetComponent<Animator>();
         // TurnOffRootMotion();
@@ -83,8 +77,9 @@ public class PlayerManager : MonoBehaviour
 
     // }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         playerMovementManager.HandleMovement();
         playerStatsManager.RegenerateStamina();
         if (Input.GetKeyDown(KeyCode.K))
@@ -93,7 +88,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    protected override void LateUpdate()
     {
         PlayerCamera.instance.HandleCameraAction();
     }

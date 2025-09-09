@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR;
 
-public class PlayerMovementManager : MonoBehaviour
+public class PlayerMovementManager : ActorMovementManager
 {
     private PlayerManager playerManager;
 
@@ -27,8 +27,10 @@ public class PlayerMovementManager : MonoBehaviour
     [SerializeField] private Vector3 rollDirection;
     [SerializeField] private float dodgeStaminaCost = 15f;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         playerManager = GetComponent<PlayerManager>();
     }
 

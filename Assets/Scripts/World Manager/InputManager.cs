@@ -45,7 +45,7 @@ public class InputManager : MonoBehaviour
     private void OnSceneChanged(Scene current, Scene next)
     {
         Debug.Log(next.buildIndex);
-        if (next.buildIndex == WorldSaveGameManager.instance.GetWorldSceneIndex())
+        if (next.buildIndex == WorldSaveGameManager.instance.GetGameSceneIndex())
         {
             instance.enabled = true;
             Debug.Log("Input Enabled");
