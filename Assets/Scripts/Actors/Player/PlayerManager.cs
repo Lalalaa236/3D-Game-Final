@@ -6,23 +6,12 @@ public class PlayerManager : ActorManager
 {
     [HideInInspector] public PlayerMovementManager playerMovementManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
-    // [HideInInspector] public CharacterController characterController;
     [HideInInspector] public PlayerStatsManager playerStatsManager;
 
     [Header("Gravity")]
     public float gravity = -20f;        // try -9.81 to -30
     public float groundedStick = -2f;   // small downward "stick to ground"
     [HideInInspector] public float verticalVelocity;
-
-    [Header("Stamina")]
-    public int currentStamina;
-    public int maxStamina;
-    private int endurance = 10;
-
-    [Header("Health")]
-    public int currentHealth;
-    public int maxHealth;
-    private int vitality = 10;
     public bool isDead = false;
     protected override void Awake()
     {
@@ -37,28 +26,9 @@ public class PlayerManager : ActorManager
         PlayerCamera.instance.playerManager = this;
         InputManager.instance.playerManager = this;
 
-        maxStamina = playerStatsManager.CalculateStamina(endurance);
-        currentStamina = maxStamina;
-        PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(maxStamina);
+        PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(playerStatsManager.maxStamina);
 
-        maxHealth = playerStatsManager.CalculateHealth(vitality);
-        currentHealth = maxHealth;
-        PlayerUIManager.instance.playerHUDManager.SetMaxHealthBarValue(maxHealth);
-    }
-
-    public void ChangeStaminaValue(int value)
-    {
-        currentStamina += value;
-        currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-        PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
-    }
-
-    public void ChangeHealthValue(int value)
-    {
-        currentHealth += value;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
-        playerStatsManager.CheckHP();
+        PlayerUIManager.instance.playerHUDManager.SetMaxHealthBarValue(playerStatsManager.maxHealth);
     }
 
     // private void TurnOffRootMotion()
@@ -84,7 +54,7 @@ public class PlayerManager : ActorManager
         playerStatsManager.RegenerateStamina();
         if (Input.GetKeyDown(KeyCode.K))
         {
-            ChangeHealthValue(-10); // test damage
+            playerStatsManager.ChangeHealthValue(-10); // test damage
         }
     }
 
@@ -110,7 +80,7 @@ public class PlayerManager : ActorManager
     {
         PlayerUIManager.instance.playerHUDManager.ShowDeathScreen();
 
-        currentHealth = 0;
+        playerStatsManager.currentHealth = 0;
         isDead = true;
 
         // RESET FLAGS
@@ -124,10 +94,10 @@ public class PlayerManager : ActorManager
     public void Revive()
     {
         isDead = false;
-        currentHealth = maxHealth;
-        currentStamina = maxStamina;
-        PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
-        PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
+        playerStatsManager.currentHealth = playerStatsManager.maxHealth;
+        playerStatsManager.currentStamina = playerStatsManager.maxStamina;
+        PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, playerStatsManager.currentStamina);
+        PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, playerStatsManager.currentHealth);
         PlayerUIManager.instance.playerHUDManager.deathScreen.SetActive(false);
         playerAnimatorManager.PlayTargetActionAnimation("Empty", false);
         

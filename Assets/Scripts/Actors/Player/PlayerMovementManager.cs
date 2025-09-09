@@ -113,7 +113,7 @@ public class PlayerMovementManager : ActorMovementManager
     {
         if (playerManager.isPerformingAction)
             return;
-        if (playerManager.currentStamina < dodgeStaminaCost)
+        if (playerManager.playerStatsManager.currentStamina < dodgeStaminaCost)
             return;
         if (moveAmount > 0)
         {
@@ -134,7 +134,7 @@ public class PlayerMovementManager : ActorMovementManager
             // perform backstep
             playerManager.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true, true, false, false);
         }
-        playerManager.ChangeStaminaValue(-Mathf.RoundToInt(dodgeStaminaCost));
+        playerManager.playerStatsManager.ChangeStaminaValue(-Mathf.RoundToInt(dodgeStaminaCost));
     }
 
     // private void HandleGroundCheck()

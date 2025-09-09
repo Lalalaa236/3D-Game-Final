@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatsManager : MonoBehaviour
+public class PlayerStatsManager : ActorStatsManager
 {
     [SerializeField] private PlayerManager playerManager;
 
@@ -10,26 +10,12 @@ public class PlayerStatsManager : MonoBehaviour
     private float staminaRegenTimerThreshold = 0.5f;
     private int staminaRegenAmount = 4;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (playerManager == null)
             playerManager = GetComponent<PlayerManager>();
-    }
-
-    public int CalculateStamina(int endurance)
-    {
-        float stamina = 0;
-
-        stamina = endurance * 10;
-        return Mathf.RoundToInt(stamina);
-    }
-
-    public int CalculateHealth(int vitality)
-    {
-        float health = 0;
-
-        health = vitality * 10;
-        return Mathf.RoundToInt(health);
     }
 
     public void RegenerateStamina()
@@ -39,11 +25,12 @@ public class PlayerStatsManager : MonoBehaviour
 
         staminaRegenTimer += Time.deltaTime;
 
-        if (playerManager.currentStamina < playerManager.maxStamina)
+        if (currentStamina < maxStamina)
         {
+            Debug.Log("Regenerating Stamina from " + currentStamina);
             if (staminaRegenTimer >= staminaRegenTimerThreshold)
             {
-                playerManager.ChangeStaminaValue(staminaRegenAmount);
+                ChangeStaminaValue(staminaRegenAmount);
                 staminaRegenTimer = 0;
             }
         }
@@ -52,9 +39,15 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void CheckHP()
     {
-        if (playerManager.currentHealth <= 0 && !playerManager.isDead)
+        if (currentHealth <= 0 && !playerManager.isDead)
         {
             StartCoroutine(playerManager.ProcessDeath());
         }
+    }
+
+    public override void ChangeHealthValue(int value)
+    {
+        base.ChangeHealthValue(value);
+        CheckHP();
     }
 }
