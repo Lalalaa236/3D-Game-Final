@@ -19,13 +19,11 @@ public class ActorStatsManager : MonoBehaviour
     {
         currentStamina += value;
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
-        PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
     }
 
     public virtual void ChangeHealthValue(int value)
     {
         currentHealth += value;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
     }
 }

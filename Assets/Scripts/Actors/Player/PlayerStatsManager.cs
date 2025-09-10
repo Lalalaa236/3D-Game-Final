@@ -48,6 +48,13 @@ public class PlayerStatsManager : ActorStatsManager
     public override void ChangeHealthValue(int value)
     {
         base.ChangeHealthValue(value);
+        PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
         CheckHP();
+    }
+
+    public override void ChangeStaminaValue(int value)
+    {
+        base.ChangeStaminaValue(value);
+        PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
     }
 }

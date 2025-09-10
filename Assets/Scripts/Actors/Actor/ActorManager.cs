@@ -5,6 +5,7 @@ using UnityEngine;
 public class ActorManager : MonoBehaviour
 {
     public CharacterController characterController;
+    public ActorStatsManager actorStatsManager;
     [HideInInspector] public Animator animator;
 
     public bool isPerformingAction;
@@ -17,6 +18,7 @@ public class ActorManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         characterController = GetComponent<CharacterController>();
+        actorStatsManager = GetComponent<ActorStatsManager>();
         animator = GetComponent<Animator>();
     }
 

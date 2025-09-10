@@ -20,12 +20,13 @@ public class PlayerManager : ActorManager
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         // characterController = GetComponent<CharacterController>();
-        playerStatsManager = GetComponent<PlayerStatsManager>();
+        playerStatsManager = actorStatsManager as PlayerStatsManager;
         animator = GetComponent<Animator>();
         // TurnOffRootMotion();
         PlayerCamera.instance.playerManager = this;
         InputManager.instance.playerManager = this;
 
+        
         PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(playerStatsManager.maxStamina);
 
         PlayerUIManager.instance.playerHUDManager.SetMaxHealthBarValue(playerStatsManager.maxHealth);
