@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class DamageCollider : MonoBehaviour
 {
+    [SerializeField] protected Collider damageCollider;
     public float damage = 25f;
 
     protected Vector3 hitPoint;
 
     protected List<ActorManager> damagedTargets = new List<ActorManager>();
+
+    private void Awake()
+    {
+        if (damageCollider == null)
+            damageCollider = GetComponent<Collider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,5 +36,16 @@ public class DamageCollider : MonoBehaviour
         damagedTargets.Add(target);
 
         target.actorStatsManager.ChangeHealthValue(-(int)damage);
+    }
+
+    public virtual void EnableDamageCollider()
+    {
+        damageCollider.enabled = true;
+    }
+
+    public virtual void DisableDamageCollider()
+    {
+        damageCollider.enabled = false;
+        damagedTargets.Clear();
     }
 }
