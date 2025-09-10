@@ -22,6 +22,11 @@ public class ActorManager : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    protected virtual void Start()
+    {
+        IgnoreSelfCollision();
+    }
+
     protected virtual void Update()
     {
 
@@ -30,5 +35,30 @@ public class ActorManager : MonoBehaviour
     protected virtual void LateUpdate()
     {
 
+    }
+
+    protected virtual void IgnoreSelfCollision()
+    {
+        Collider characterCollider = GetComponent<Collider>();
+        Collider[] damageables = GetComponentsInChildren<Collider>();
+
+        List<Collider> ignoredColliders = new List<Collider>();
+
+        foreach (Collider damageable in damageables)
+        {
+            ignoredColliders.Add(damageable);
+        }
+        ignoredColliders.Add(characterCollider);
+
+        foreach (Collider col1 in ignoredColliders)
+        {
+            foreach (Collider col2 in ignoredColliders)
+            {
+                if (col1 != col2)
+                {
+                    Physics.IgnoreCollision(col1, col2);
+                }
+            }
+        }
     }
 }

@@ -12,15 +12,12 @@ public class DamageCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Actor"))
+        ActorManager target = other.GetComponentInParent<ActorManager>();
+        if (target != null)
         {
-            ActorManager target = other.GetComponent<ActorManager>();
-            if (target != null)
-            {
-                hitPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+            hitPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
 
-                DamageTarget(target);
-            }
+            DamageTarget(target);
         }
     }
 
