@@ -405,52 +405,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &551077251
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 551077252}
-  - component: {fileID: 551077253}
-  m_Layer: 0
-  m_Name: Wordl Character Effects Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &551077252
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551077251}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &551077253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551077251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 898c68ecfa34890468ca7c8d4188819e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  instantEffects:
-  - {fileID: 11400000, guid: fb1a441a6e00f1646a8909332056c2be, type: 2}
 --- !u!1 &967085294
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7761bfdaddbad4db48c8646e250e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldSceneIndex: 1
+  gameSceneIndex: 1
 --- !u!4 &1632982860
 Transform:
   m_ObjectHideFlags: 0
@@ -1877,5 +1831,3 @@ SceneRoots:
   - {fileID: 6593437041133576261}
   - {fileID: 56800699}
   - {fileID: 8607088327955181211}
-  - {fileID: 551077252}
-  - {fileID: 1895937344}

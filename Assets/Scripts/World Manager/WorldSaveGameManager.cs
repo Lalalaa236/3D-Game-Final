@@ -7,7 +7,7 @@ public class WorldSaveGameManager : MonoBehaviour
 {
     public static WorldSaveGameManager instance;
 
-    [SerializeField] private int worldSceneIndex = 1;
+    [SerializeField] private int gameSceneIndex = 1;
 
     private void Awake()
     {
@@ -28,12 +28,12 @@ public class WorldSaveGameManager : MonoBehaviour
 
     public IEnumerator LoadNewGame()
     {
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(worldSceneIndex);
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(gameSceneIndex);
         yield return null;
     }
 
-    public int GetWorldSceneIndex()
+    public int GetGameSceneIndex()
     {
-        return worldSceneIndex;
+        return gameSceneIndex;
     }
 }
