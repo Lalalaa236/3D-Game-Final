@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
-using UnityEngine.XR;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(NavMeshAgent))]
-public class PlayerMovementManager : MonoBehaviour
+public class PlayerMovementManager : ActorMovementManager
 {
-    private PlayerManager playerManager;
-    private NavMeshAgent navMeshAgent;
+    private PlayerManager  playerManager;
+    private NavMeshAgent   navMeshAgent;
 
     [HideInInspector] public float verticalMovement;
     [HideInInspector] public float horizontalMovement;
@@ -20,29 +18,30 @@ public class PlayerMovementManager : MonoBehaviour
     private Vector3 targetDir;
 
     [Header("Movement Speeds")]
-    [SerializeField] private float walkingSpeed = 2f;
+    [SerializeField] private float walkingSpeed   = 2f;
     [SerializeField] private float sprintingSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 15f;
+    [SerializeField] private float rotationSpeed  = 15f;
 
     [Header("Dodge / Roll")]
-    [SerializeField] private Vector3 rollDirection;
-    [SerializeField] private float rollDistance = 4f;
-    [SerializeField] private float rollDuration = 0.45f;
-    [SerializeField] private float backstepDistance = 2.0f;
-    [SerializeField] private float backstepDuration = 0.30f;
-    [SerializeField] private float dodgeStaminaCost = 15f;
+    [SerializeField] private Vector3 rollDirection;          // debug/inspect
+    [SerializeField] private float   rollDistance    = 4f;
+    [SerializeField] private float   rollDuration    = 0.45f;
+    [SerializeField] private float   backstepDistance= 2.0f; // (not used, kept for parity)
+    [SerializeField] private float   backstepDuration= 0.30f;// (not used, kept for parity)
+    [SerializeField] private float   dodgeStaminaCost= 15f;
 
-    private bool   isRolling = false;
-    private Vector3 activeRollDir = Vector3.zero;
-    private float  rollTimeLeft = 0f;
-    private float  rollHorizontalSpeed = 0f;
+    private bool     isRolling = false;
+    private Vector3  activeRollDir = Vector3.zero;
+    private float    rollTimeLeft = 0f;
+    private float    rollHorizontalSpeed = 0f;
 
     [Header("NavMesh Settings")]
     [SerializeField] private float maxNavClampDistance = 0.5f;
-    [SerializeField] private float raycastPadding = 0.05f;
+    [SerializeField] private float raycastPadding      = 0.05f;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); // keep ActorMovementManager initialization
         playerManager = GetComponent<PlayerManager>();
         navMeshAgent  = GetComponent<NavMeshAgent>();
     }
@@ -118,12 +117,13 @@ public class PlayerMovementManager : MonoBehaviour
     {
         if (playerManager.isPerformingAction || isRolling) return;
 
-        // stamina gate (from version B)
-        if (playerManager.currentStamina < dodgeStaminaCost) return;
+        // Stamina gate via PlayerStatsManager (refactor path)
+        if (playerManager.playerStatsManager == null ||
+            playerManager.playerStatsManager.currentStamina < dodgeStaminaCost) return;
 
         if (moveAmount > 0f)
         {
-            // roll in input direction (camera-relative)
+            // Roll in input direction (camera-relative)
             rollDirection  = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
             rollDirection += PlayerCamera.instance.cameraObject.transform.right   * horizontalMovement;
 
@@ -135,20 +135,20 @@ public class PlayerMovementManager : MonoBehaviour
 
             BeginRoll(rollDirection, rollDistance, rollDuration);
 
-            // face roll direction
+            // Face roll direction
             transform.rotation = Quaternion.LookRotation(rollDirection);
 
-            // play animation (root motion translation OFF to avoid double-move)
+            // Play animation (keep translation movement in code to avoid double-move)
             playerManager.playerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true, true, false, false);
         }
         else
         {
-            // backstep anim only (you can make it physical by BeginRoll(-transform.forward,...))
+            // Backstep animation only (can be made physical if desired)
             playerManager.playerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true, true, false, false);
         }
 
-        // stamina spend
-        playerManager.ChangeStaminaValue(-Mathf.RoundToInt(dodgeStaminaCost));
+        // Spend stamina
+        playerManager.playerStatsManager.ChangeStaminaValue(-Mathf.RoundToInt(dodgeStaminaCost));
 
         if (navMeshAgent) navMeshAgent.nextPosition = transform.position;
     }
@@ -236,7 +236,7 @@ public class PlayerMovementManager : MonoBehaviour
     {
         if (navMeshAgent && NavMesh.SamplePosition(transform.position, out var postHit, maxNavClampDistance, NavMesh.AllAreas))
         {
-            transform.position       = postHit.position;
+            transform.position        = postHit.position;
             navMeshAgent.nextPosition = postHit.position;
         }
     }

@@ -5,62 +5,43 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(NavMeshAgent))]
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : ActorManager
 {
     [HideInInspector] public PlayerMovementManager playerMovementManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public PlayerStatsManager    playerStatsManager;
-    [HideInInspector] public CharacterController   characterController;
-    [HideInInspector] public Animator              animator;
     [HideInInspector] public NavMeshAgent          navMeshAgent;
 
-    // Gameplay flags
-    public bool isPerformingAction;
-    public bool canRotate = true;
-    public bool canMove   = true;
-    public bool applyRootMotion = false;
-
-    // ── Gravity (centralized, used by movement if you call GetGravityDelta) ─────────
     [Header("Gravity")]
     public float gravity = -20f;        // try -9.81..-30
-    public float groundedStick = -2f;   // small downward force to keep grounded
+    public float groundedStick = -2f;   // small downward "stick to ground"
     [HideInInspector] public float verticalVelocity;
 
-    // ── Stamina / Health (from StatsManager + UI) ───────────────────────────────────
-    [Header("Stamina")]
-    public int currentStamina;
-    public int maxStamina;
-    [SerializeField] private int   endurance = 10;
-    [SerializeField] private float staminaRegenTimer = 0f;
-    [SerializeField] private float staminaRegenTimerThreshold = 0.5f;
-    [SerializeField] private int   staminaRegenAmount = 4;
+    [Header("State")]
+    public bool isDead = false;
 
-    [Header("Health")]
-    public int currentHealth;
-    public int maxHealth;
-    [SerializeField] private int vitality = 10;
-
-    private void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        base.Awake(); // let ActorManager cache animator/characterController/actorStatsManager, etc.
 
-        // Cache components
+        // Components specific to Player
         playerMovementManager = GetComponent<PlayerMovementManager>();
         playerAnimatorManager = GetComponent<PlayerAnimatorManager>();
-        playerStatsManager    = GetComponent<PlayerStatsManager>();
-        characterController   = GetComponent<CharacterController>();
-        animator              = GetComponent<Animator>();
+        playerStatsManager    = actorStatsManager as PlayerStatsManager;
         navMeshAgent          = GetComponent<NavMeshAgent>();
 
         // Hook camera & input
         PlayerCamera.instance.playerManager = this;
         InputManager.instance.playerManager = this;
 
-        // NavMeshAgent is for nav-legal clamping; CharacterController drives motion
+        // Persist unless explicitly destroyed (e.g., on death)
+        DontDestroyOnLoad(gameObject);
+
+        // NavMeshAgent is used for nav-legal clamping; CharacterController drives motion
         navMeshAgent.updatePosition = false;
         navMeshAgent.updateRotation = false;
 
-        // Match agent to controller (prevents doorway weirdness)
+        // Mirror agent dimensions to controller to avoid doorway/step issues
         if (characterController != null)
         {
             navMeshAgent.radius     = characterController.radius;
@@ -71,84 +52,117 @@ public class PlayerManager : MonoBehaviour
         // Ensure we start on the NavMesh if possible
         if (NavMesh.SamplePosition(transform.position, out var startHit, 2f, NavMesh.AllAreas))
         {
-            navMeshAgent.Warp(startHit.position);  // sync agent
-            transform.position = startHit.position; // sync transform
+            navMeshAgent.Warp(startHit.position);
+            transform.position = startHit.position;
         }
         else
         {
             Debug.LogWarning("PlayerManager: Player is not over a NavMesh. Bake/position the player on a walkable area.");
         }
 
-        // Stats + UI init (if present)
-        if (playerStatsManager != null)
+        // Initialize UI from PlayerStatsManager (refactor flow)
+        if (playerStatsManager != null && PlayerUIManager.instance != null)
         {
-            maxStamina     = playerStatsManager.CalculateStamina(endurance);
-            currentStamina = maxStamina;
-            if (PlayerUIManager.instance != null)
-                PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(maxStamina);
-
-            maxHealth     = playerStatsManager.CalculateHealth(vitality);
-            currentHealth = maxHealth;
-            if (PlayerUIManager.instance != null)
-                PlayerUIManager.instance.playerHUDManager.SetMaxHealthBarValue(maxHealth);
+            PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(playerStatsManager.maxStamina);
+            PlayerUIManager.instance.playerHUDManager.SetMaxHealthBarValue(playerStatsManager.maxHealth);
         }
     }
 
-    private void Update()
+    protected override void Update()
     {
-        playerMovementManager?.HandleMovement();
-        RegenerateStamina();
+        base.Update();
 
-        // Keep NavMeshAgent in sync with the capsule’s transform
+        // Drive movement
+        playerMovementManager?.HandleMovement();
+
+        // Stamina regen handled by the stats manager (refactor flow)
+        playerStatsManager?.RegenerateStamina();
+
+        // Keep NavMeshAgent synced to the capsule transform
         if (navMeshAgent != null) navMeshAgent.nextPosition = transform.position;
+
+        // Test damage key (optional)
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            playerStatsManager?.ChangeHealthValue(-10);
+        }
     }
 
-    private void LateUpdate()
+    protected override void LateUpdate()
     {
         PlayerCamera.instance.HandleCameraAction();
     }
 
-    // ── Public helpers ──────────────────────────────────────────────────────────────
-    public void ChangeStaminaValue(int value)
-    {
-        currentStamina = Mathf.Clamp(currentStamina + value, 0, maxStamina);
-        if (PlayerUIManager.instance != null)
-            PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, currentStamina);
-    }
-
-    public void ChangeHealthValue(int value)
-    {
-        currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
-        if (PlayerUIManager.instance != null)
-            PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, currentHealth);
-    }
-
-    public void RegenerateStamina()
-    {
-        if (isPerformingAction) { staminaRegenTimer = 0f; return; }
-
-        staminaRegenTimer += Time.deltaTime;
-        if (currentStamina < maxStamina && staminaRegenTimer >= staminaRegenTimerThreshold)
-        {
-            ChangeStaminaValue(staminaRegenAmount);
-            staminaRegenTimer = 0f;
-        }
-    }
-
     /// <summary>
     /// Centralized gravity delta for CharacterController.Move().
-    /// Call this from movement instead of duplicating gravity logic.
     /// </summary>
     public Vector3 GetGravityDelta()
     {
-        if (characterController != null && characterController.isGrounded)
+        if (characterController.isGrounded)
         {
             if (verticalVelocity < 0f) verticalVelocity = groundedStick;
         }
         else
         {
-            verticalVelocity += gravity * Time.deltaTime; // v = v + g*dt
+            verticalVelocity += gravity * Time.deltaTime;
         }
         return Vector3.up * verticalVelocity * Time.deltaTime;
+    }
+
+    // ── Compatibility wrappers (old code may still call these) ─────────────────────
+    public void ChangeStaminaValue(int value)
+    {
+        if (playerStatsManager == null) return;
+        playerStatsManager.currentStamina = Mathf.Clamp(playerStatsManager.currentStamina + value, 0, playerStatsManager.maxStamina);
+        if (PlayerUIManager.instance != null)
+            PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, playerStatsManager.currentStamina);
+    }
+
+    public void ChangeHealthValue(int value)
+    {
+        if (playerStatsManager == null) return;
+        playerStatsManager.currentHealth = Mathf.Clamp(playerStatsManager.currentHealth + value, 0, playerStatsManager.maxHealth);
+        if (PlayerUIManager.instance != null)
+            PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0, playerStatsManager.currentHealth);
+    }
+
+    // ── Death / Revive flow (from refactor) ────────────────────────────────────────
+    public IEnumerator ProcessDeath(bool manuallySelectDeathAnimation = false)
+    {
+        PlayerUIManager.instance.playerHUDManager.ShowDeathScreen();
+
+        if (playerStatsManager != null) playerStatsManager.currentHealth = 0;
+        isDead = true;
+
+        playerAnimatorManager.PlayTargetActionAnimation("Dead_01", true);
+        yield return new WaitForSeconds(5f);
+
+        Revive();
+    }
+
+    public void Revive()
+    {
+        isDead = false;
+
+        if (playerStatsManager != null)
+        {
+            playerStatsManager.currentHealth  = playerStatsManager.maxHealth;
+            playerStatsManager.currentStamina = playerStatsManager.maxStamina;
+
+            if (PlayerUIManager.instance != null)
+            {
+                PlayerUIManager.instance.playerHUDManager.SetNewStaminaBarValue(0, playerStatsManager.currentStamina);
+                PlayerUIManager.instance.playerHUDManager.SetNewHealthBarValue(0,  playerStatsManager.currentHealth);
+                PlayerUIManager.instance.playerHUDManager.deathScreen.SetActive(false);
+            }
+        }
+
+        playerAnimatorManager.PlayTargetActionAnimation("Empty", false);
+
+        // Destroy the current player before loading new scene to prevent duplicates
+        Destroy(gameObject);
+
+        // Load new game scene
+        StartCoroutine(WorldSaveGameManager.instance.LoadNewGame());
     }
 }

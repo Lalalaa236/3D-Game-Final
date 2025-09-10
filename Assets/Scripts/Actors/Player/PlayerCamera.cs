@@ -21,8 +21,6 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float lrRotationVelocity = 220f;
     [SerializeField] private float udRotationVelocity = 220f;
 
-    [SerializeField, Range(0.1f, 1f)] private float cameraSensitivity = 0.1f;
-
     [SerializeField] private float minimumLookAngle = -35f;
     [SerializeField] private float maximumLookAngle = 65f;
 
@@ -75,8 +73,8 @@ public class PlayerCamera : MonoBehaviour
 
     private void HandleRotation()
     {
-        lrLookAngle += InputManager.instance.horizontalCamera * lrRotationVelocity * Time.deltaTime * cameraSensitivity;
-        udLookAngle -= InputManager.instance.verticalCamera * udRotationVelocity * Time.deltaTime * cameraSensitivity;
+        lrLookAngle += InputManager.instance.horizontalCamera * lrRotationVelocity * Time.deltaTime;
+        udLookAngle -= InputManager.instance.verticalCamera * udRotationVelocity * Time.deltaTime;
         udLookAngle = Mathf.Clamp(udLookAngle, minimumLookAngle, maximumLookAngle);
 
         Vector3 rotation = Vector3.zero;

@@ -6,6 +6,16 @@ public class PlayerHUDManager : MonoBehaviour
 {
     [SerializeField] private UI_StatBar staminaBar;
     [SerializeField] private UI_StatBar healthBar;
+    [SerializeField] public GameObject deathScreen;
+    private void Awake()
+    {
+        deathScreen.SetActive(false);
+    }
+
+    public void ShowDeathScreen()
+    {
+        deathScreen.SetActive(true);
+    }
 
     public void SetNewStaminaBarValue(int oldValue, int newValue)
     {

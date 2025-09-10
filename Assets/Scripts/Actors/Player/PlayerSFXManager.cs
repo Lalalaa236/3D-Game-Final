@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSFXManager : MonoBehaviour
+public class PlayerSFXManager : ActorSFXManager
 {
-    private AudioSource audioSource;
-
-    private void Awake()
+    protected override void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    public void PlayRollSFX()
-    {
-        audioSource.PlayOneShot(WorldSFXManager.instance.rollSFX);
+        base.Awake();
     }
 }
