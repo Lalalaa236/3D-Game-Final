@@ -12,7 +12,11 @@ public class PlayerManager : ActorManager
     public float gravity = -20f;        // try -9.81 to -30
     public float groundedStick = -2f;   // small downward "stick to ground"
     [HideInInspector] public float verticalVelocity;
-    public bool isDead = false;
+    [HideInInspector] public bool isDead = false;
+
+    [Header("Weapon")]
+    public Weapon rightHandWeapon;
+    public Weapon leftHandWeapon;
     protected override void Awake()
     {
         base.Awake();
@@ -26,7 +30,7 @@ public class PlayerManager : ActorManager
         PlayerCamera.instance.playerManager = this;
         InputManager.instance.playerManager = this;
 
-        
+
         PlayerUIManager.instance.playerHUDManager.SetMaxStaminaBarValue(playerStatsManager.maxStamina);
 
         PlayerUIManager.instance.playerHUDManager.SetMaxHealthBarValue(playerStatsManager.maxHealth);

@@ -588,6 +588,7 @@ GameObject:
   - component: {fileID: 4538001077592853405}
   - component: {fileID: 7910250455896437336}
   - component: {fileID: 2361725980221253422}
+  - component: {fileID: 2581587363214541154}
   - component: {fileID: 1080601781228367754}
   - component: {fileID: 4439969133800501837}
   - component: {fileID: 5979888254933325906}
@@ -677,6 +678,8 @@ MonoBehaviour:
   groundedStick: -2
   verticalVelocity: 0
   isDead: 0
+  rightHandWeapon: {fileID: 11400000, guid: dae5a1deb81dfbf4cadd403fea8123e0, type: 2}
+  leftHandWeapon: {fileID: 11400000, guid: dae5a1deb81dfbf4cadd403fea8123e0, type: 2}
 --- !u!114 &5589527821235204807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,6 +745,20 @@ MonoBehaviour:
   maxStamina: 100
   playerManager: {fileID: 0}
   staminaRegenTimer: 0
+--- !u!114 &2581587363214541154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098691592522830425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01763bb9de30f684b9e0da65b9911930, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
 --- !u!143 &1080601781228367754
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2138,8 +2155,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771fe0a54095a24499fe22f7c550ff24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 194264, guid: 23f3f4b3bcef07946bf59bf4d156600e, type: 3}
-  rightHandTransform: {fileID: 2628484963673455650}
+  slot: 0
+  currentWeaponPrefab: {fileID: 3145907798864444295, guid: 72662c876a279fd42a4fd0b4bde45f13,
+    type: 3}
+  parentTransform: {fileID: 2628484963673455650}
   localPositionOffset: {x: 10.1, y: 3.4, z: -0.4}
   localEulerOffset: {x: 23.378, y: -109.321, z: 97.761}
   localScale: {x: 80, y: 80, z: 80}
@@ -2175,6 +2194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3658527305875669730}
+  - component: {fileID: 6554245863395477096}
   - component: {fileID: 9187104863668158111}
   m_Layer: 7
   m_Name: Hand_L
@@ -2201,6 +2221,25 @@ Transform:
   - {fileID: 8771652958682848994}
   m_Father: {fileID: 1994805622286594723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6554245863395477096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2731440133429399054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 771fe0a54095a24499fe22f7c550ff24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slot: 1
+  currentWeaponPrefab: {fileID: 3145907798864444295, guid: 72662c876a279fd42a4fd0b4bde45f13,
+    type: 3}
+  parentTransform: {fileID: 3658527305875669730}
+  localPositionOffset: {x: -10.1, y: -3.4, z: 0.4}
+  localEulerOffset: {x: 23.378, y: -109.321, z: -97.761}
+  localScale: {x: 80, y: 80, z: 80}
 --- !u!136 &9187104863668158111
 CapsuleCollider:
   m_ObjectHideFlags: 0
