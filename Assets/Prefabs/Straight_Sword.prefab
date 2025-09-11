@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3145907798864444295
+--- !u!1 &6193331591427637633
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3970951951548880196}
-  - component: {fileID: 2550161026053264409}
-  - component: {fileID: 8591959697061671748}
-  - component: {fileID: 4568227521642971859}
-  - component: {fileID: 3004466383931382627}
-  - component: {fileID: 1366527653471031038}
+  - component: {fileID: 6093061880418023619}
+  - component: {fileID: 4388711230200690760}
+  - component: {fileID: 3096087390961969833}
+  - component: {fileID: 654101095319117673}
+  - component: {fileID: 2290452493225176282}
+  - component: {fileID: 6212594326756722663}
   m_Layer: 8
   m_Name: Straight_Sword
   m_TagString: Untagged
@@ -21,36 +21,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3970951951548880196
+--- !u!4 &6093061880418023619
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145907798864444295}
+  m_GameObject: {fileID: 6193331591427637633}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2550161026053264409
+--- !u!33 &4388711230200690760
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145907798864444295}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Mesh: {fileID: 4300000, guid: b24956cf5d4cc0e44a42e03d26fa5797, type: 3}
---- !u!23 &8591959697061671748
+--- !u!23 &3096087390961969833
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145907798864444295}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4568227521642971859
+--- !u!64 &654101095319117673
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145907798864444295}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -108,13 +108,13 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43960247642864304, guid: 6039e5e605f06b047b3363ee05dd5b12, type: 2}
---- !u!65 &3004466383931382627
+--- !u!65 &2290452493225176282
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145907798864444295}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -129,17 +129,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.01, y: 1.24, z: 0.17}
   m_Center: {x: 0, y: 0.81, z: 0.0000009536743}
---- !u!114 &1366527653471031038
+--- !u!114 &6212594326756722663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3145907798864444295}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf0dc67ceffb2fc49a02d3ce9dd588c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageCollider: {fileID: 3004466383931382627}
+  damageCollider: {fileID: 2290452493225176282}
   damage: 25

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 032f68bdadd455748a820b565786eb64, type: 3}
-  m_Name: Straight Sword
+  m_Name: Great Sword
   m_EditorClassIdentifier: 
-  itemName: Straight Sword
+  itemName: Great Sword
   itemIcon: {fileID: 0}
-  itemID: 0
-  weaponPrefab: {fileID: 6193331591427637633, guid: 72662c876a279fd42a4fd0b4bde45f13,
+  itemID: 1
+  weaponPrefab: {fileID: 6187012459308782309, guid: 0cc5d0db4f3414c4cbbcd2a577475bbb,
     type: 3}
-  weaponDamage: 10
-  staminaCost: 10
+  weaponDamage: 15
+  staminaCost: 15

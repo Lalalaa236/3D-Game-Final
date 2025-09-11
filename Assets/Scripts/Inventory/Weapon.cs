@@ -8,6 +8,4 @@ public class Weapon : Item
     public GameObject weaponPrefab;
     public int weaponDamage = 0;
     public int staminaCost = 0;
-
-
 }

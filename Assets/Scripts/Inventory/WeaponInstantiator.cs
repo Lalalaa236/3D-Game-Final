@@ -4,10 +4,10 @@ public class WeaponInstantiator : MonoBehaviour
 {
     public Slot slot;
     [SerializeField] private GameObject currentWeaponPrefab;
-    [SerializeField] private Transform parentTransform;
-    [SerializeField] private Vector3 localPositionOffset;
-    [SerializeField] private Vector3 localEulerOffset;
-    [SerializeField] private Vector3 localScale = Vector3.one;
+    // [SerializeField] private Transform rightHandTransform;
+    // [SerializeField] private Vector3 localPositionOffset;   // tweak in Inspector
+    // [SerializeField] private Vector3 localEulerOffset;      // tweak in Inspector
+    // [SerializeField] private Vector3 localScale = Vector3.one;
 
     // private void Start()
     // {
@@ -52,10 +52,10 @@ public class WeaponInstantiator : MonoBehaviour
     {
         currentWeaponPrefab = weaponPrefab;
 
-        weaponPrefab.transform.parent = parentTransform;
+        weaponPrefab.transform.parent = transform;
 
-        weaponPrefab.transform.localPosition = localPositionOffset;
-        weaponPrefab.transform.localRotation = Quaternion.Euler(localEulerOffset);
-        weaponPrefab.transform.localScale = localScale;
+        weaponPrefab.transform.localPosition = Vector3.zero;
+        weaponPrefab.transform.localRotation = Quaternion.identity;
+        // weaponPrefab.transform.localScale = Vector3.one;
     }
 }

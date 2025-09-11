@@ -17,6 +17,9 @@ public class PlayerManager : ActorManager
     [Header("Weapon")]
     public Weapon rightHandWeapon;
     public Weapon leftHandWeapon;
+    public int rightIndex = 0;
+
+    public Weapon[] switchableRightHandWeapons = new Weapon[2];
     protected override void Awake()
     {
         base.Awake();
