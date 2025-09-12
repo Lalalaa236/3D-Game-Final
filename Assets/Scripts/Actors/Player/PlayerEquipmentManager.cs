@@ -79,4 +79,16 @@ public class PlayerEquipmentManager : MonoBehaviour
         rightHand.DestroyWeapon();
         EquipRightWeapon();
     }
+
+    public void OpenDamageCollider()
+    {
+        DamageCollider damageCollider = currentRightHandWeapon.GetComponentInChildren<DamageCollider>();
+        damageCollider.EnableDamageCollider();
+    }
+
+    public void CloseDamageCollider()
+    {
+        DamageCollider damageCollider = currentRightHandWeapon.GetComponentInChildren<DamageCollider>();
+        damageCollider.DisableDamageCollider();
+    }
 }

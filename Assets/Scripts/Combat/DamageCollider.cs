@@ -15,6 +15,7 @@ public class DamageCollider : MonoBehaviour
     {
         if (damageCollider == null)
             damageCollider = GetComponent<Collider>();
+        damageCollider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
