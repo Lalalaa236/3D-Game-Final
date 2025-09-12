@@ -233,8 +233,13 @@ GameObject:
   - component: {fileID: 407186}
   - component: {fileID: 9505110}
   - component: {fileID: -3928967165589936846}
-  - component: {fileID: -3667549198431681985}
   - component: {fileID: -5708926064010852783}
+  - component: {fileID: 1755539183247455}
+  - component: {fileID: 1667288134954726343}
+  - component: {fileID: 283379139099048398}
+  - component: {fileID: -6843795177299104865}
+  - component: {fileID: -6551559882899421232}
+  - component: {fileID: 8262495891755951563}
   m_Layer: 0
   m_Name: Goblin 1
   m_TagString: Untagged
@@ -302,32 +307,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!143 &-3667549198431681985
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 112422}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.85
-  m_Radius: 0.2
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!54 &-5708926064010852783
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -355,6 +334,127 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1755539183247455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3249800d68d7cee459efef5e10ea9bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1667288134954726343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b4883fa4478d7d4292d55cb139059fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 100
+  maxHealth: 100
+  currentStamina: 100
+  maxStamina: 100
+  playerManager: {fileID: 0}
+  staminaRegenTimer: 0
+--- !u!114 &283379139099048398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f23dafeb613cf4479791c76698c54e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDead: 0
+  characterController: {fileID: 0}
+  actorStatsManager: {fileID: 0}
+  animator: {fileID: 0}
+  actorEffectsManager: {fileID: 0}
+  actorAnimatorManager: {fileID: 0}
+  actorCombatManager: {fileID: 0}
+  isPerformingAction: 0
+  canRotate: 1
+  canMove: 1
+  applyRootMotion: 0
+  playerMovementManager: {fileID: 0}
+  playerAnimatorManager: {fileID: 0}
+  playerStatsManager: {fileID: 0}
+  playerEquipmentManager: {fileID: 0}
+  playerCombatManager: {fileID: 0}
+  gravity: -20
+  groundedStick: -2
+  verticalVelocity: 0
+  rightHandWeapon: {fileID: 0}
+  rightIndex: 0
+  switchableRightHandWeapons:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &-6843795177299104865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98625a08304ea6d4e84b3b84de0b8a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
+  player: {fileID: 0}
+  currentWeapon: {fileID: 0}
+--- !u!114 &-6551559882899421232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 893e260421bdeea45b9b0cd7c227547f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: {fileID: 0}
+  processEffect: 0
+--- !u!143 &8262495891755951563
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112422}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.7
+  m_Radius: 0.2
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1 &116542
 GameObject:
   m_ObjectHideFlags: 0

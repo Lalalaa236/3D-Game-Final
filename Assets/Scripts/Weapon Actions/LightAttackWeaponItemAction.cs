@@ -20,6 +20,6 @@ public class LightAttackWeaponItemAction : ItemAction
 
     private void PerformLightAttackAction(PlayerManager playerPerformingAction, Weapon actionWeapon)
     {
-        playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(lightAttackAnimationName, true, true, true, true);
+        playerPerformingAction.playerAnimatorManager.PlayTargetAttackActionAnimation(lightAttackAnimationName, true, true, false, false);
     }
 }

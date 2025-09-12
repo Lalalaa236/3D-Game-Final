@@ -11,6 +11,7 @@ public class ActorManager : MonoBehaviour
     [HideInInspector] public Animator animator;
     [HideInInspector] public ActorEffectsManager actorEffectsManager;
     [HideInInspector] public ActorAnimatorManager actorAnimatorManager;
+    [HideInInspector] public ActorCombatManager actorCombatManager;
 
     public bool isPerformingAction;
     public bool canRotate = true;
@@ -24,6 +25,7 @@ public class ActorManager : MonoBehaviour
         animator = GetComponent<Animator>();
         actorEffectsManager = GetComponent<ActorEffectsManager>();
         actorAnimatorManager = GetComponent<ActorAnimatorManager>();
+        actorCombatManager = GetComponent<ActorCombatManager>();
     }
 
     protected virtual void Start()
