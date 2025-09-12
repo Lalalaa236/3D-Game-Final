@@ -8,6 +8,7 @@ public class PlayerManager : ActorManager
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public PlayerStatsManager playerStatsManager;
     [HideInInspector] public PlayerEquipmentManager playerEquipmentManager;
+    [HideInInspector] public PlayerCombatManager playerCombatManager;
 
     [Header("Gravity")]
     public float gravity = -20f;        // try -9.81 to -30
@@ -30,6 +31,7 @@ public class PlayerManager : ActorManager
         playerStatsManager = actorStatsManager as PlayerStatsManager;
         animator = GetComponent<Animator>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
+        playerCombatManager = GetComponent<PlayerCombatManager>();
         // TurnOffRootMotion();
         PlayerCamera.instance.playerManager = this;
         InputManager.instance.playerManager = this;

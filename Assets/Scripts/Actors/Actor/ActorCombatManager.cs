@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class ActorCombatManager : MonoBehaviour
 {
-    
+    protected virtual void Awake()
+    {
+
+    }
 }

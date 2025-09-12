@@ -5,10 +5,12 @@ using UnityEngine;
 public class ActorManager : MonoBehaviour
 {
     public bool isDead = false;
+
     public CharacterController characterController;
     public ActorStatsManager actorStatsManager;
     [HideInInspector] public Animator animator;
     [HideInInspector] public ActorEffectsManager actorEffectsManager;
+    [HideInInspector] public ActorAnimatorManager actorAnimatorManager;
 
     public bool isPerformingAction;
     public bool canRotate = true;
@@ -21,6 +23,7 @@ public class ActorManager : MonoBehaviour
         actorStatsManager = GetComponent<ActorStatsManager>();
         animator = GetComponent<Animator>();
         actorEffectsManager = GetComponent<ActorEffectsManager>();
+        actorAnimatorManager = GetComponent<ActorAnimatorManager>();
     }
 
     protected virtual void Start()

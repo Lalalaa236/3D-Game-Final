@@ -8,5 +8,6 @@ public class Item : ScriptableObject
     [SerializeField] public Sprite itemIcon;
     [SerializeField] public int itemID;
 
-
+    [Header("Item Action")]
+    public ItemAction itemAction;
 }

@@ -23,4 +23,14 @@ public class ActorAnimatorManager : MonoBehaviour
         actorManager.canRotate = canRotate;
         actorManager.canMove = canMove;
     }
+
+    public void PlayTargetAttackActionAnimation(string targetAnim, bool isPerformingAction, bool applyRootMotion = false, bool canRotate = false, bool canMove = false)
+    {
+        // actorManager.animator.SetBool("isPerformingAction", isPerformingAction);
+        actorManager.animator.applyRootMotion = applyRootMotion;
+        actorManager.animator.CrossFade(targetAnim, 0.2f);
+        actorManager.isPerformingAction = isPerformingAction;
+        actorManager.canRotate = canRotate;
+        actorManager.canMove = canMove;
+    }
 }
