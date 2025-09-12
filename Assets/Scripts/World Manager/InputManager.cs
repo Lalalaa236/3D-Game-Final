@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
 
     [Header("Action")]
     [SerializeField] private bool dodgeInput = false;
+    [SerializeField] private bool attackInput = false;
 
     private void Awake()
     {
@@ -65,6 +66,7 @@ public class InputManager : MonoBehaviour
             inputActions.Movement.Move.performed += i => movementVector = i.ReadValue<Vector2>();
             inputActions.Camera.Move.performed += i => cameraVector = i.ReadValue<Vector2>();
             inputActions.Actions.Dodge.performed += i => dodgeInput = true;
+            inputActions.Actions.Attack.performed += i => attackInput = true;
         }
 
         inputActions.Enable();
@@ -90,6 +92,7 @@ public class InputManager : MonoBehaviour
         HandleMovementInput();
         HandleCameraInput();
         HandleDodgeInput();
+        HandleAttackInput();
     }
 
     private void HandleMovementInput()
@@ -131,6 +134,18 @@ public class InputManager : MonoBehaviour
 
             // Handle dodge action
             playerManager.playerMovementManager.TryPerformDodge();
+        }
+    }
+
+    private void HandleAttackInput()
+    {
+        if (attackInput)
+        {
+            attackInput = false;
+
+            // Handle attack action
+            playerManager.playerCombatManager.PerformWeaponBasedAction(playerManager.rightHandWeapon.attackAction,
+                                                                        playerManager.playerCombatManager.currentWeapon);
         }
     }
 }

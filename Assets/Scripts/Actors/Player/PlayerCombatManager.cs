@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class PlayerCombatManager : ActorCombatManager
 {
-    PlayerManager player;
+    [SerializeField] private PlayerManager player;
     
-    public Item currentWeapon;
+    public Weapon currentWeapon;
 
     protected override void Awake()
     {
         base.Awake();
         player = GetComponent<PlayerManager>();
     }
+    
+    private void Start()
+    {
+        currentWeapon = player.rightHandWeapon;
+    }
 
     public void PerformWeaponBasedAction(ItemAction weaponAction, Weapon weaponPerformingAction)
     {
-        
+
         weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
     }
 }

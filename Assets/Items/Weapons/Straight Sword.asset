@@ -15,7 +15,9 @@ MonoBehaviour:
   itemName: Straight Sword
   itemIcon: {fileID: 0}
   itemID: 0
+  itemAction: {fileID: 0}
   weaponPrefab: {fileID: 6193331591427637633, guid: 72662c876a279fd42a4fd0b4bde45f13,
     type: 3}
   weaponDamage: 10
   staminaCost: 10
+  attackAction: {fileID: 11400000, guid: ec391860b7c4bb747ad2b0b04a4c1c9f, type: 2}

@@ -75,6 +75,7 @@ public class PlayerEquipmentManager : MonoBehaviour
 
         selected = playerManager.switchableRightHandWeapons[playerManager.rightIndex];
         playerManager.rightHandWeapon = selected;
+        playerManager.playerCombatManager.currentWeapon = selected;
         rightHand.DestroyWeapon();
         EquipRightWeapon();
     }

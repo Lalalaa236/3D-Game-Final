@@ -162,6 +162,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""168f0a67-9be6-47e7-a2ba-4c54a2b851d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -184,6 +193,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""441dccaa-b93b-46e0-98d8-5bf3a7571a2e"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7b22611-e67a-417a-a22d-84486e619117"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -292,6 +323,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         // Actions
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_Dodge = m_Actions.FindAction("Dodge", throwIfNotFound: true);
+        m_Actions_Attack = m_Actions.FindAction("Attack", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Move = m_Camera.FindAction("Move", throwIfNotFound: true);
@@ -403,11 +435,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Actions;
     private List<IActionsActions> m_ActionsActionsCallbackInterfaces = new List<IActionsActions>();
     private readonly InputAction m_Actions_Dodge;
+    private readonly InputAction m_Actions_Attack;
     public struct ActionsActions
     {
         private @GameInput m_Wrapper;
         public ActionsActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Dodge => m_Wrapper.m_Actions_Dodge;
+        public InputAction @Attack => m_Wrapper.m_Actions_Attack;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +454,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Dodge.started += instance.OnDodge;
             @Dodge.performed += instance.OnDodge;
             @Dodge.canceled += instance.OnDodge;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
         }
 
         private void UnregisterCallbacks(IActionsActions instance)
@@ -427,6 +464,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Dodge.started -= instance.OnDodge;
             @Dodge.performed -= instance.OnDodge;
             @Dodge.canceled -= instance.OnDodge;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
         }
 
         public void RemoveCallbacks(IActionsActions instance)
@@ -515,6 +555,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     public interface IActionsActions
     {
         void OnDodge(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

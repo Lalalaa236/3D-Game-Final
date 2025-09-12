@@ -15,7 +15,9 @@ MonoBehaviour:
   itemName: Great Sword
   itemIcon: {fileID: 0}
   itemID: 1
+  itemAction: {fileID: 0}
   weaponPrefab: {fileID: 6187012459308782309, guid: 0cc5d0db4f3414c4cbbcd2a577475bbb,
     type: 3}
   weaponDamage: 15
   staminaCost: 15
+  attackAction: {fileID: 11400000, guid: ec391860b7c4bb747ad2b0b04a4c1c9f, type: 2}

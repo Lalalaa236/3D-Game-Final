@@ -140,6 +140,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "168f0a67-9be6-47e7-a2ba-4c54a2b851d0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -162,6 +171,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Dodge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "441dccaa-b93b-46e0-98d8-5bf3a7571a2e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7b22611-e67a-417a-a22d-84486e619117",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
