@@ -679,8 +679,7 @@ MonoBehaviour:
   groundedStick: -2
   verticalVelocity: 0
   isDead: 0
-  rightHandWeapon: {fileID: 11400000, guid: a717b528e2702cc40a37afb93873acd3, type: 2}
-  leftHandWeapon: {fileID: 11400000, guid: dae5a1deb81dfbf4cadd403fea8123e0, type: 2}
+  rightHandWeapon: {fileID: 11400000, guid: dae5a1deb81dfbf4cadd403fea8123e0, type: 2}
   rightIndex: 0
   switchableRightHandWeapons:
   - {fileID: 11400000, guid: dae5a1deb81dfbf4cadd403fea8123e0, type: 2}
@@ -2145,6 +2144,7 @@ Transform:
   - {fileID: 3537198787512326818}
   - {fileID: 4034022742395186000}
   - {fileID: 6229385302639969496}
+  - {fileID: 1198027289365723971}
   m_Father: {fileID: 188387844029832308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &672065177069347917
@@ -3944,7 +3944,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2628484963673455650}
-  - {fileID: 1198027289365723971}
   m_Father: {fileID: 5070196809745987358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &4326665956820291244
@@ -4805,12 +4804,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8089043754682088605}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.02433666, y: -0.6201991, z: 0.7776889, w: -0.09980417}
-  m_LocalPosition: {x: 35.3, y: 2, z: -1.6}
-  m_LocalScale: {x: 80, y: 80, z: 80}
+  m_LocalRotation: {x: 0.052186143, y: -0.6233769, z: 0.7763175, w: -0.07751787}
+  m_LocalPosition: {x: 8.0472, y: 1.9999784, z: -2.2201524}
+  m_LocalScale: {x: 80, y: 80, z: 79.999985}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 188387844029832308}
+  m_Father: {fileID: 2628484963673455650}
   m_LocalEulerAnglesHint: {x: 73.696, y: -324.843, z: -138.663}
 --- !u!114 &400645411890850521
 MonoBehaviour:
