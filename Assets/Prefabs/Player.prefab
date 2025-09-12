@@ -592,6 +592,7 @@ GameObject:
   - component: {fileID: 4439969133800501837}
   - component: {fileID: 5979888254933325906}
   - component: {fileID: 109820914181246697}
+  - component: {fileID: -5774130507394429479}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -667,6 +668,7 @@ MonoBehaviour:
   characterController: {fileID: 0}
   actorStatsManager: {fileID: 0}
   animator: {fileID: 0}
+  actorEffectsManager: {fileID: 0}
   isPerformingAction: 0
   canRotate: 1
   canMove: 1
@@ -674,11 +676,17 @@ MonoBehaviour:
   playerMovementManager: {fileID: 0}
   playerAnimatorManager: {fileID: 0}
   playerStatsManager: {fileID: 0}
-  navMeshAgent: {fileID: 0}
+  playerEquipmentManager: {fileID: 0}
   gravity: -20
   groundedStick: -2
   verticalVelocity: 0
   isDead: 0
+  rightHandWeapon: {fileID: 0}
+  leftHandWeapon: {fileID: 0}
+  rightIndex: 0
+  switchableRightHandWeapons:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5589527821235204807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,14 +717,11 @@ MonoBehaviour:
   walkingSpeed: 1.5
   sprintingSpeed: 5
   rotationSpeed: 15
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   rollDirection: {x: 0, y: 0, z: 0}
-  rollDistance: 4
-  rollDuration: 0.45
-  backstepDistance: 2
-  backstepDuration: 0.3
   dodgeStaminaCost: 15
-  maxNavClampDistance: 0.5
-  raycastPadding: 0.05
 --- !u!114 &7910250455896437336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,6 +923,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-5774130507394429479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098691592522830425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 893e260421bdeea45b9b0cd7c227547f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEffect: {fileID: 11400000, guid: bf9278c980ae23848862f6d12098c4a6, type: 2}
+  processEffect: 0
 --- !u!1 &1376127185370669767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,11 +2184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771fe0a54095a24499fe22f7c550ff24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 194264, guid: 23f3f4b3bcef07946bf59bf4d156600e, type: 3}
-  rightHandTransform: {fileID: 2628484963673455650}
-  localPositionOffset: {x: 10.1, y: 3.4, z: -0.4}
-  localEulerOffset: {x: 23.378, y: -109.321, z: 97.761}
-  localScale: {x: 80, y: 80, z: 80}
+  slot: 0
+  currentWeaponPrefab: {fileID: 0}
 --- !u!136 &672065177069347917
 CapsuleCollider:
   m_ObjectHideFlags: 0

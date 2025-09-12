@@ -35,6 +35,9 @@ public class DamageCollider : MonoBehaviour
 
         damagedTargets.Add(target);
 
+        TakeDamageEffect takeDamageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
+        takeDamageEffect.physicalDamage = damage;
+
         target.actorStatsManager.ChangeHealthValue(-(int)damage);
     }
 

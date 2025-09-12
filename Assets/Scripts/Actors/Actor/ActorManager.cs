@@ -7,6 +7,7 @@ public class ActorManager : MonoBehaviour
     public CharacterController characterController;
     public ActorStatsManager actorStatsManager;
     [HideInInspector] public Animator animator;
+    [HideInInspector] public ActorEffectsManager actorEffectsManager;
 
     public bool isPerformingAction;
     public bool canRotate = true;
@@ -18,6 +19,7 @@ public class ActorManager : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         actorStatsManager = GetComponent<ActorStatsManager>();
         animator = GetComponent<Animator>();
+        actorEffectsManager = GetComponent<ActorEffectsManager>();
     }
 
     protected virtual void Start()

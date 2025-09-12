@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Effects/Take Damage Effect")]
 public class TakeDamageEffect : InstantCharacterEffect
 {
     [Header("Take Damage Effect Settings")]
@@ -14,6 +15,9 @@ public class TakeDamageEffect : InstantCharacterEffect
     public bool playDamageAnimation = true;
     public bool manuallySelectDamageAnimation = false;
     public string damageAnimation;
+
+    [Header("Direction Damage Taken From")]
+    public float angleHitFrom;
 
     public override void ProcessEffect(ActorManager character)
     {

@@ -690,6 +690,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae6824ece9a9ac489a6ba2e27f34d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  takeDamageEffect: {fileID: 11400000, guid: 71c8f15364aca8f4994ed4eecef8d07e, type: 2}
+  instantCharacterEffects:
+  - {fileID: 11400000, guid: bf9278c980ae23848862f6d12098c4a6, type: 2}
 --- !u!4 &1069076758
 Transform:
   m_ObjectHideFlags: 0

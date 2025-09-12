@@ -10,7 +10,7 @@ public class ActorEffectsManager : MonoBehaviour
     {
         character = GetComponent<ActorManager>();
     }
-    public void ProcessInstantEffect(InstantCharacterEffect effect)
+    public virtual void ProcessInstantEffect(InstantCharacterEffect effect)
     {
         effect.ProcessEffect(character);
     }

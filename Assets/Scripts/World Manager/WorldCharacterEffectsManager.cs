@@ -5,6 +5,9 @@ using UnityEngine;
 public class WorldCharacterEffectsManager : MonoBehaviour
 {
     public static WorldCharacterEffectsManager instance;
+
+    [Header("Damage")]
+    public TakeDamageEffect takeDamageEffect;
     [SerializeField] private List<InstantCharacterEffect> instantCharacterEffects;
 
     private void Awake()
@@ -17,6 +20,7 @@ public class WorldCharacterEffectsManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        GenerateEffectIDs();
     }
 
     public void GenerateEffectIDs()
