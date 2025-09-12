@@ -16,6 +16,7 @@ public class PlayerCombatManager : ActorCombatManager
 
     public void PerformWeaponBasedAction(ItemAction weaponAction, Weapon weaponPerformingAction)
     {
+        
         weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
     }
 }

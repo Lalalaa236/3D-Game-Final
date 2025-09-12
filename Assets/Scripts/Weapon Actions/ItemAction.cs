@@ -7,7 +7,7 @@ public class ItemAction : ScriptableObject
 {
     public int actionID;
 
-    public virtual void AttemptToPerformAction(PlayerManager playerPerformingAction, Item itemAction)
+    public virtual void AttemptToPerformAction(PlayerManager playerPerformingAction, Weapon itemAction)
     {
         Debug.Log("Attempting to perform action: " + actionID + " with item: " + itemAction.itemName);
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class LightAttackWeaponItemAction : ItemAction
 {
     [SerializeField] private string lightAttackAnimationName = "Main_Light_Attack_01";
-    public override void AttemptToPerformAction(PlayerManager playerPerformingAction, Item itemAction)
+    public override void AttemptToPerformAction(PlayerManager playerPerformingAction, Weapon itemAction)
     {
         base.AttemptToPerformAction(playerPerformingAction, itemAction);
 
