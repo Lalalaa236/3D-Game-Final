@@ -52,10 +52,15 @@ public class WeaponInstantiator : MonoBehaviour
     {
         currentWeaponPrefab = weaponPrefab;
 
+        // Store original scale and rotation before parenting
+        Vector3 originalScale = weaponPrefab.transform.localScale;
+        Quaternion originalRotation = weaponPrefab.transform.localRotation;
+
         weaponPrefab.transform.parent = transform;
 
+        // Reset position but preserve original scale and rotation
         weaponPrefab.transform.localPosition = Vector3.zero;
-        weaponPrefab.transform.localRotation = Quaternion.identity;
-        // weaponPrefab.transform.localScale = Vector3.one;
+        weaponPrefab.transform.localRotation = originalRotation;
+        weaponPrefab.transform.localScale = originalScale;
     }
 }

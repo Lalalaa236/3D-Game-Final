@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &194264
+--- !u!1 &6193331591427637633
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 452572}
-  - component: {fileID: 3388744}
-  - component: {fileID: 2384120}
-  - component: {fileID: 64729073034559884}
-  - component: {fileID: 4033044577947333063}
-  - component: {fileID: 6872336978686258270}
+  - component: {fileID: 6093061880418023619}
+  - component: {fileID: 4388711230200690760}
+  - component: {fileID: 3096087390961969833}
+  - component: {fileID: 2290452493225176282}
+  - component: {fileID: 6212594326756722663}
   m_Layer: 8
-  m_Name: SM_Wep_Ornate_Sword_02
+  m_Name: Straight_Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &452572
+--- !u!4 &6093061880418023619
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264}
+  m_GameObject: {fileID: 6193331591427637633}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.012832828, y: -0.76593715, z: 0.00012741415, w: 0.64278734}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3388744
+  m_LocalEulerAnglesHint: {x: 0.956, y: -100.001, z: -1.117}
+--- !u!33 &4388711230200690760
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Mesh: {fileID: 4300000, guid: b24956cf5d4cc0e44a42e03d26fa5797, type: 3}
---- !u!23 &2384120
+--- !u!23 &3096087390961969833
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,35 +85,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64729073034559884
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43960247642864304, guid: 6039e5e605f06b047b3363ee05dd5b12, type: 2}
---- !u!65 &4033044577947333063
+--- !u!65 &2290452493225176282
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -125,20 +102,21 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.01, y: 1.24, z: 0.17}
   m_Center: {x: 0, y: 0.81, z: 0.0000009536743}
---- !u!114 &6872336978686258270
+--- !u!114 &6212594326756722663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194264}
+  m_GameObject: {fileID: 6193331591427637633}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf0dc67ceffb2fc49a02d3ce9dd588c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageCollider: {fileID: 2290452493225176282}
   damage: 25
