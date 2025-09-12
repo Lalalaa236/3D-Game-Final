@@ -13,7 +13,6 @@ public class PlayerManager : ActorManager
     public float gravity = -20f;        // try -9.81 to -30
     public float groundedStick = -2f;   // small downward "stick to ground"
     [HideInInspector] public float verticalVelocity;
-    [HideInInspector] public bool isDead = false;
 
     [Header("Weapon")]
     public Weapon rightHandWeapon;

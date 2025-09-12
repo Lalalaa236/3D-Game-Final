@@ -96,7 +96,7 @@ public class PlayerCamera : MonoBehaviour
         Vector3 direction = cameraObject.transform.position - cameraPivotTransform.position;
         direction.Normalize();
 
-        if (Physics.SphereCast(cameraPivotTransform.position, collisionRadius, direction, out hit, Mathf.Abs(targetPosition), ~ignoreLayers))
+        if (Physics.SphereCast(cameraPivotTransform.position, collisionRadius, direction, out hit, Mathf.Abs(targetPosition), ignoreLayers))
         {
             float distance = Vector3.Distance(cameraPivotTransform.position, hit.point);
             targetPosition = -(distance - collisionRadius);

@@ -20,11 +20,7 @@ public class PlayerEquipmentManager : MonoBehaviour
     private void Start()
     {
         EquipRightWeapon();
-<<<<<<< HEAD
-        EquipLeftWeapon();
-=======
         // EquipLeftWeapon();
->>>>>>> Refactor
     }
 
     public void InitSlots()
@@ -54,22 +50,6 @@ public class PlayerEquipmentManager : MonoBehaviour
             damageCollider.damage = playerManager.rightHandWeapon.weaponDamage;
         }
     }
-<<<<<<< HEAD
-    public void EquipLeftWeapon()
-    {
-        if (playerManager.leftHandWeapon != null)
-        {
-            currentLeftHandWeapon = Instantiate(playerManager.leftHandWeapon.weaponPrefab);
-            leftHand.EquipWeapon(currentLeftHandWeapon);
-            DamageCollider damageCollider = currentLeftHandWeapon.GetComponentInChildren<DamageCollider>();
-            damageCollider.damage = playerManager.leftHandWeapon.weaponDamage;
-        }
-    }
-
-    public void SwitchRightWeapon()
-    {
-        // playerManager.playerAnimatorManager.PlayTargetActionAnimation("Switch_Right_Weapon", false);
-=======
     // public void EquipLeftWeapon()
     // {
     //     if (playerManager.leftHandWeapon != null)
@@ -84,7 +64,6 @@ public class PlayerEquipmentManager : MonoBehaviour
     public void SwitchRightWeapon()
     {
         playerManager.playerAnimatorManager.PlayTargetActionAnimation("Switch_Right_Weapon", false, true, true, true);
->>>>>>> Refactor
 
         Weapon selected = null;
         ++playerManager.rightIndex;
