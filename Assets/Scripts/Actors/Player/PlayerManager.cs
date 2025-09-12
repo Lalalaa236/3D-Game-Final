@@ -7,6 +7,7 @@ public class PlayerManager : ActorManager
     [HideInInspector] public PlayerMovementManager playerMovementManager;
     [HideInInspector] public PlayerAnimatorManager playerAnimatorManager;
     [HideInInspector] public PlayerStatsManager playerStatsManager;
+    [HideInInspector] public PlayerEquipmentManager playerEquipmentManager;
 
     [Header("Gravity")]
     public float gravity = -20f;        // try -9.81 to -30
@@ -29,6 +30,7 @@ public class PlayerManager : ActorManager
         // characterController = GetComponent<CharacterController>();
         playerStatsManager = actorStatsManager as PlayerStatsManager;
         animator = GetComponent<Animator>();
+        playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
         // TurnOffRootMotion();
         PlayerCamera.instance.playerManager = this;
         InputManager.instance.playerManager = this;
@@ -63,6 +65,10 @@ public class PlayerManager : ActorManager
         if (Input.GetKeyDown(KeyCode.K))
         {
             playerStatsManager.ChangeHealthValue(-10); // test damage
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            playerEquipmentManager.SwitchRightWeapon();
         }
     }
 

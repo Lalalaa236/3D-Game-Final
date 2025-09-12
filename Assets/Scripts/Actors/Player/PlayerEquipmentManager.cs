@@ -43,6 +43,7 @@ public class PlayerEquipmentManager : MonoBehaviour
     {
         if (playerManager.rightHandWeapon != null)
         {
+            Debug.Log("Equipping right weapon");
             currentRightHandWeapon = Instantiate(playerManager.rightHandWeapon.weaponPrefab);
             rightHand.EquipWeapon(currentRightHandWeapon);
             DamageCollider damageCollider = currentRightHandWeapon.GetComponentInChildren<DamageCollider>();
@@ -62,8 +63,19 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     public void SwitchRightWeapon()
     {
-        playerManager.playerAnimatorManager.PlayTargetActionAnimation("Switch_Right_Weapon", false);
+        // playerManager.playerAnimatorManager.PlayTargetActionAnimation("Switch_Right_Weapon", false);
 
         Weapon selected = null;
+        ++playerManager.rightIndex;
+        playerManager.rightIndex = playerManager.rightIndex % playerManager.switchableRightHandWeapons.Length;
+        if (playerManager.rightIndex < 0)
+        {
+            playerManager.rightIndex = 0;
+        }
+
+        selected = playerManager.switchableRightHandWeapons[playerManager.rightIndex];
+        playerManager.rightHandWeapon = selected;
+        rightHand.DestroyWeapon();
+        EquipRightWeapon();
     }
 }

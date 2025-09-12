@@ -674,12 +674,17 @@ MonoBehaviour:
   playerMovementManager: {fileID: 0}
   playerAnimatorManager: {fileID: 0}
   playerStatsManager: {fileID: 0}
+  playerEquipmentManager: {fileID: 0}
   gravity: -20
   groundedStick: -2
   verticalVelocity: 0
   isDead: 0
   rightHandWeapon: {fileID: 11400000, guid: a717b528e2702cc40a37afb93873acd3, type: 2}
   leftHandWeapon: {fileID: 11400000, guid: dae5a1deb81dfbf4cadd403fea8123e0, type: 2}
+  rightIndex: 0
+  switchableRightHandWeapons:
+  - {fileID: 11400000, guid: dae5a1deb81dfbf4cadd403fea8123e0, type: 2}
+  - {fileID: 11400000, guid: a717b528e2702cc40a37afb93873acd3, type: 2}
 --- !u!114 &5589527821235204807
 MonoBehaviour:
   m_ObjectHideFlags: 0
