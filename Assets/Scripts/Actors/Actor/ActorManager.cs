@@ -15,8 +15,6 @@ public class ActorManager : MonoBehaviour
 
     protected virtual void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         characterController = GetComponent<CharacterController>();
         actorStatsManager = GetComponent<ActorStatsManager>();
         animator = GetComponent<Animator>();
@@ -37,6 +35,11 @@ public class ActorManager : MonoBehaviour
 
     }
 
+    protected virtual void FixedUpdate()
+    {
+
+    }
+    
     protected virtual void IgnoreSelfCollision()
     {
         Collider characterCollider = GetComponent<Collider>();

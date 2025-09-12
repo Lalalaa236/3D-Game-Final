@@ -1840,9 +1840,7 @@ GameObject:
   - component: {fileID: 471940}
   - component: {fileID: 9588672}
   - component: {fileID: -2437768275409887382}
-  - component: {fileID: -6039530797438931916}
   - component: {fileID: 406148102394841954}
-  - component: {fileID: -8731337648845380521}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -1911,8 +1909,8 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140808}
   m_Enabled: 1
-  m_AgentTypeID: -334000983
-  m_Radius: 0.3
+  m_AgentTypeID: 0
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1925,32 +1923,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-6039530797438931916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7ac29e48baab094d88967b56d7f4b1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  aggroRadius: 10
-  loseAggroRadius: 15
-  attackRange: 2
-  stoppingBuffer: 0.2
-  repathInterval: 0.2
-  destRefreshThreshold: 0.3
-  dampTime: 0.12
-  animSmoothing: 0.12
-  forwardDeadzone: 0.03
-  allowBackpedal: 0
-  attackCooldown: 3
-  rotateToVelocity: 1
-  rotateSpeed: 12
 --- !u!143 &406148102394841954
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1971,28 +1943,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.85
-  m_Radius: 0.3
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!208 &-8731337648845380521
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 140808}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 0.3, y: 0.925, z: 0.3}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &141464
 GameObject:
   m_ObjectHideFlags: 0
