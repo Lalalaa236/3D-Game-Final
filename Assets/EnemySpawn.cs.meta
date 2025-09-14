@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/EnemySpawn.cs.meta
+guid: 48496c3be5e11674abf8da62cfaa092b
+========
+guid: 9a7350e5b151918429d7a16940596f19
+>>>>>>>> Refactor:Assets/Scripts/Actors/Actor/ActorAnimatorManager.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
